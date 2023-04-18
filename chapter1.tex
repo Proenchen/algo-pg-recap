@@ -1,0 +1,92 @@
+\section{Einführung}
+
+\textbf{Definition}: \textbf{Graph} ist ein Tupel $G=(V,E)$ mit endliche Knotenmenge $V$ und endliche Kantenmenge $E$
+\begin{itemize}
+	\item Kante $e \in E$ hat Form $e = uv$ mit $u,v \in V$.
+	\item $uv = vu$ $\rightarrow$ Graphen \textbf{ungerichtet}
+	\item $e = uu$ ist erlaubt $\rightarrow$ \textbf{Schlinge}
+	\item Auch $e = uv$ und $e' = uv$ erlaubt mit $e \neq e'$ $\rightarrow$ \textbf{Mehrfachkante}
+	\item \textbf{Einfacher Graph} $\iff$ ohne Schlingen und Mehrfachkanten
+	\item \textbf{Zusammenhängend} $\iff$ ein Weg zwischen je zwei Knoten
+\end{itemize}
+\bigskip
+\textbf{Definition}: Eine \textbf{Zeichnung} von $G = (V,E)$ bildet diesen so auf $\R^2$ ab, dass
+\begin{enumerate}
+	\item Knoten Punkte in der Ebene sind, d.h. $V \subset \R^2$
+	\item Kante $e = uv$ ist injektive, stetige Kurve von $u$ nach $v$, d.h. $\gamma_e\colon [0,1] \rightarrow \R^2$ mit 
+	\begin{itemize}
+		\item $\gamma_e(0) = u$ und $\gamma_e(1) = v$
+		\item $\gamma_e(0) \notin V$ für alle $0<t<1$
+	\end{itemize}
+\end{enumerate}
+\medskip
+\begin{itemize}
+	\item Zeichnung heißt \textbf{kreuzungsfrei} bzw. \textbf{planar} wenn für je zwei Kanten $e, e'$ und $0 < t, t' < 1$ gilt: $\gamma_e(t)\neq\gamma_e(t')$
+	\item Graph heißt \textbf{planar}, wenn er mindestens eine kreuzungsfreie Zeichnung besitzt
+\end{itemize}
+\bigskip
+\textbf{Definition}: Für $n\in\N$ ist der \textbf{vollständige Graph} $K_n$
+\begin{itemize}
+	\item $V(K_n)=\{v_1,\ldots,v_n\}$
+	\item $E(K_n)=\{v_iv_j\mid v_i,v_j\in V, i\neq j\}$
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{images/k.png}
+\end{center}
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+	\centering
+	\vspace{-40pt}
+	\includegraphics[width=0.2\textwidth]{images/k5-p.png}
+	\vspace{40pt}
+	\vspace{-120pt}
+\end{wrapfigure}
+\textbf{Lemma}: Graph $K_5$ ist nicht planar
+
+\textit{Beweis}: Betrachte beliebige Zeichnung von $K_5$
+\begin{itemize}
+	\item Betrachte $v_1$ und seine 4 ausgehenden Kanten
+	\item O.B.d.A. Kanten kreuzungsfrei zu $v_2,v_3,v_4,v_5$ in zyklischer Reihenfolge um $v_1$
+	\item Kanten $v_1v_3, v_3v_5, v_5v_1$ bilden geschlossene Kurve in $\R^2$ die $v_2$ und $v_4$ trennt $\implies$ $v_2v_4$ kann nicht kreuzungsfrei gezeichnet sein
+\end{itemize}
+\bigskip
+\textbf{Definition}: Für $m,n\in\N$ ist der vollständig bipartite Graph $K_{m,n}$
+\begin{itemize}
+	\item $V(K_{m,n})=\{a_1,\ldots,a_m\}\cup\{b_1,\ldots,b_n\}$
+	\item $E(K_{m,n})=\{a_ib_j \mid i \in\{1, \ldots, m\}, j \in\{1, \ldots,n\}\}$
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/bg.png}
+\end{center}
+
+\begin{wrapfigure}{r}{0.25\textwidth}
+	\centering
+	\includegraphics[width=0.25\textwidth]{images/k33-p.png}
+	\vspace{-50pt}
+\end{wrapfigure}
+\textbf{Lemma}: Graph $K_{3,3}$ ist nicht planar
+
+\textit{Beweis}: Betrachte beliebige Zeichnung von $K_{3,3}$
+\begin{itemize}
+	\item Kreis $a_1b_1a_2b_2a_3b_3$ im Graphen bildet eine geschlossene Kurve in $\R^2$
+	\item Jede Kante von $a_1b_2, a_2b_3, a_3b_1$ liegt komplett innerhalb oder komplett außerhalb dieser Kurve
+	
+	$\implies$ mindestens zwei liegen auf der gleichen Seite
+	
+	$\implies$ diese zwei kreuzen sich
+\end{itemize}
+\bigskip
+\textbf{Definitionen}: Für eine feste planare Zeichnung eines planaren Graphen definiere:
+\begin{itemize}
+	\item \textbf{Facetten}: Zusammenhangskomponenten von $\R^2$ nach Entfernen aller Knoten und Kanten $\implies$ Es gibt genau eine \textbf{äußere Facette} und mehrere \textbf{innere Facetten}
+	\item \textbf{Äußere Knoten} sind die, die inzident zur äußeren Facette sind
+	\item \textbf{Innere Knoten} sind die übrigen Knoten
+	\item \textbf{Äußere Kanten} sind die, die komplett im Rand der äußeren Facette liegen 
+	\item \textbf{Innere Kanten} sind die übrigen Kanten
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/facette.png}
+\end{center}
+\bigskip
+\textbf{Satz von Euler}: Sei $G$ ein zusammenhängender Graph mit einer planaren Zeichnung mit $n$ Knoten, $m$ Kanten und $f$ Facetten. Dann gilt
+$$n-m+f=2$$

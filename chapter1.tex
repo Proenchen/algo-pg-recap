@@ -108,13 +108,27 @@ $$n-m+f=2$$
 Dann gilt 
 $$m\leq 3n-6\qquad\text{ und }\qquad \delta(G)\leq 5$$
 
+Beide Ungleichungen sind bestmöglich.
+
+\pagebreak
 \textit{Beweis}: $m\leq 3n-6$
 \begin{itemize}
-	\item O.B.d.A. $G$ ist zusammenhängend
-	\item Jede Facette ist berandet von min. 3 Kantenseiten 
+	\item O.B.d.A. $G$ ist zusammenhängend, da man Kanten einfügen kann bis er das ist
+	\item Jede Facette ist berandet von min. 3 Kantenseiten, da $n\geq 3$ 
 	\item Jede Kantenseite in genau eine Facette
 	\item Jede Kante hat genau 2 Seiten
 \end{itemize}
-$\Rightarrow 3f\leq \#\text{Seiten-Facetten-Inzidenzen} =2m$
+$\implies 3f\leq \text{Anzahl der Seiten-Facetten-Inzidenzen} =2m$
 
-$\Rightarrow 3(2+m-n)= 3f\leq 2m \Rightarrow m\leq 3n-6$
+$\implies 3(2+m-n)\leq 2m \implies m\leq 3n-6$ (mit Euler-Formel)\\
+
+\textit{Beweis}: $\delta(G)\leq 5$
+\begin{itemize}
+	\item Jede Kante hat genau 2 inzidente Knoten
+	\item Jeder Knoten $v$ hat genau $\text{deg}(v)$ inzidente Kanten
+	\item Für jeden Knoten $v$ gilt $\text{deg}(v)\geq\delta(G)$
+\end{itemize}
+$\implies 2m=\text{Anzahl der Knoten-Kanten-Inzidenzen}=\sum\limits_{v\in V(G)}\text{deg}(v)\geq \delta(G)\cdot n$
+
+$\implies 2(3n-6)\geq 2m\geq \delta(G)\cdot n \implies \delta(G)\leq 6-12/n$
+

@@ -90,3 +90,31 @@
 \bigskip
 \textbf{Satz von Euler}: Sei $G$ ein zusammenhängender Graph mit einer planaren Zeichnung mit $n$ Knoten, $m$ Kanten und $f$ Facetten. Dann gilt
 $$n-m+f=2$$
+
+\textit{Beweis}: Beweise $m-(f-1)=n-1$, woraus die Behauptung folgt. Führe dafür eine Induktion nach $f-1$, der Anzahl der inneren Facetten, durch.
+\begin{itemize}
+	\item I.A.: $f-1=0$, d.h. keine innere Facette $\rightarrow$ $G$ ist ein Baum, also kreisfrei und zusammenhängend $\rightarrow$ $m=n-1$
+	\item I.S.: $f-1\geq 1$, d.h. min. eine innere Facette
+	\begin{itemize}
+		\item Sei $e$ eine Kante zwischen äußerer und innerer Facette $\rightarrow$ $G'=G\setminus e$ ist zusammenhängend $\rightarrow$ In $G'$ gilt $n'=n,m'=m-1,f'=f-1$
+		\item Mit I.V. folgt: $m'-(f'-1)=n'-1\Leftrightarrow m-1-(f-1-1)=n-1 \Leftrightarrow m-(f-1)=n-1$
+	\end{itemize}
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/euler-proof.png}
+\end{center}
+\bigskip
+\textbf{Korollar aus Euler-Formel}: Sei $G$ ein planarer, einfacher Graph mit $n\geq 3$ Knoten, $m$ Kanten, und kleinstem vorkommenden Knotengrad $\delta(G)$.
+Dann gilt 
+$$m\leq 3n-6\qquad\text{ und }\qquad \delta(G)\leq 5$$
+
+\textit{Beweis}: $m\leq 3n-6$
+\begin{itemize}
+	\item O.B.d.A. $G$ ist zusammenhängend
+	\item Jede Facette ist berandet von min. 3 Kantenseiten 
+	\item Jede Kantenseite in genau eine Facette
+	\item Jede Kante hat genau 2 Seiten
+\end{itemize}
+$\Rightarrow 3f\leq \#\text{Seiten-Facetten-Inzidenzen} =2m$
+
+$\Rightarrow 3(2+m-n)= 3f\leq 2m \Rightarrow m\leq 3n-6$

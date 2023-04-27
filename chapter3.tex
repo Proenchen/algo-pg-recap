@@ -1,0 +1,109 @@
+\section{Graphfärbung}
+
+\textbf{Definition}: Sei $G=(V,E)$ ein Graph, $k\in\N$. 
+Eine \textbf{$\boldsymbol{k}$-Färbung} von $G$ ist eine Abbildung $c\colon V\rightarrow \{1,2,\ldots,k\}$, sodass $c(u)\neq c(v)$ für jede Kante $uv\in E$
+\begin{itemize}
+	\item Kleinstes $k$, für das so eine $k$-Färbung existiert, heißt \textbf{chromatische Zahl $\boldsymbol{\chi(G)}$}
+	\item Bei Färbungen nehmen wir Graphen implizit als schlingenfrei an
+\end{itemize}
+\bigskip
+\textbf{Frage}: Was ist die größte chromatische Zahl die ein planarer Graph
+annehmen kann, d.h. was ist $\chi_{\text{planar}}\coloneqq\max\{\chi(G)\mid G \text{ planar}\}$?\\
+
+\textbf{Lemma}: $\chi_{\text{planar}}\leq 6$
+
+\begin{wrapfigure}{r}{0.25\textwidth}
+	\centering
+	\vspace{-55pt}
+	\includegraphics[width=0.3\textwidth]{images/6-f.png}
+	\vspace{40pt}
+	\vspace{-120pt}
+\end{wrapfigure}
+\textit{Beweis}: Führe Induktion über $|V|$
+\begin{itemize}
+	\item I.A.: $|V|\leq 6$: Man erhält eine Färbung, indem jeder Knoten eine eigene Farbe bekommt
+	\item I.S.: $|V|> 6$
+	\begin{itemize}
+		\item Nach Euler-Formel gibt es $v\in V$ mit $\text{deg}(v)\leq 5$
+		\item Nach I.V. gibt es 6-Färbung von $G\setminus v$
+		\item Nachbarn von $v$ in $G\setminus v$ decken höchstens fünf Farben ab $\rightarrow$ Färbe $v$ in verbleibender Farbe
+	\end{itemize}
+\end{itemize}
+\bigskip
+\textbf{Lemma}: $\chi_{\text{planar}}\leq 5$
+
+\textit{Beweis}: Induktion analog zum oberen Beweis
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/5-f.png}
+\end{center}
+
+I.S.:
+\begin{itemize}
+	\item Nach Euler-Formel gibt es $v\in V$ mit $\text{deg}(v)\leq 5$
+	\item Nach I.V. gibt es 5-Färbung von $G\setminus v$
+	\item Betrachte Teilgraph, der nur blau-gelbe Knoten enthält:
+	\begin{itemize}
+		\item \textbf{Fall 1}: 1 und 3 liegen in unterschiedlichen Zusammenhangskomponenten
+		
+		$\rightarrow$ Tausche in einer Zusammenhangskomponente alle blauen durch gelbe und alle gelben Knoten durch blaue aus $\rightarrow$ Farbe wird für $v$ frei
+		\item \textbf{Fall 2} (siehe Bild): 1 und 3 liegen in der selben Zusammenhangskomponente. Für rot-lila-Teilgraph können 2 und 4 nicht in der selben Zusammenhangskomponente liegen, da Graph sonst nicht mehr planar wäre
+		
+		$\rightarrow$ Farbe wird für $v$ frei
+	\end{itemize}
+\end{itemize}
+\bigskip
+\textbf{Definition}: Sei $G=(V,E)$ ein einfacher Graph. Sei $L\colon V\rightarrow 2^\N$ eine Listenzuweisung, d.h. $L(v)$ ist Menge von Zahlen / Farben. Eine \textbf{$\boldsymbol{L}$-Listenfärbung} von $G$ ist eine Knotenfärbung $c$ mit
+\begin{itemize}
+	\item $c(v)\in L(v)$ für jeden Knoten $v\in V$
+	\item $c(u)\neq c(v)$ für jede Kante $uv\in E$
+\end{itemize}
+$G$ heißt \textbf{$\boldsymbol{k}$-listenfärbbar} wenn für jede Listenzuweisung $L$ mit $|L(v)|\geq k$ für jeden Knoten $v\in V$ eine $L$-Listenfärbung von $G$ existiert.
+\begin{itemize}
+	\item Kleinstes $k$, für das $G$ $k$-listenfärbbar ist, heißt \textbf{listenchromatische Zahl $\boldsymbol{\chi_{\text{list}}(G)}$}
+\end{itemize}
+\bigskip
+\textbf{Beweisskizze zu Listenfärbungen}: 
+\begin{itemize}
+	\item $\chi_{\text{list}}(G)>k$: $\exists \text{ Listen } L\quad \nexists\text{ } L$-Listenfärbung 
+	\item $\chi_{\text{list}}(G)\leq k$: $\forall \text{ Listen } L\quad \exists\text{ } L$-Listenfärbung
+\end{itemize}
+\bigskip
+\textbf{Lemma}: Für jeden planaren Graphen gilt $\chi_{\text{list}}(G)\leq 6$
+
+\textit{Beweis}: Die gleiche Argumentation wie für $\chi_{\text{planar}}\leq 6$ funktioniert\\
+
+\textbf{Beobachtung}: Für jeden Graphen $G$ gilt $\chi_{\text{list}}(G)\geq \chi(G)$
+
+\textit{Beweis}: 
+\begin{itemize}
+	\item Setze $L(v)=\{1,\ldots,k\}$ für jeden Knoten $v$
+	\item Dann sind $L$-Listenfärbungen genau $k$-Knotenfärbungen $\implies \chi(G)\leq \chi_{\text{list}}(G)$
+\end{itemize}
+\bigskip
+\textbf{Satz}: Es gibt einen planaren Graphen mit $\chi_{\text{list}}(G)\geq 5$
+
+\textit{Beweis}: Konstruiere einen planaren Graphen $G$ mit Listenzuweisung $L$, sodass 
+\begin{itemize}
+	\item $|L(v)|=4$ für jeden Knoten $v$
+	\item keine $L$-Listenfärbung von $G$ existiert
+\end{itemize}
+Betrachte dazu folgendes Gadget $H(\alpha,\beta)$:
+\begin{center}
+	\includegraphics[width=0.45\textwidth]{images/lf-5.png}
+\end{center}
+Dieses Gadget ist nicht färbbar. Konstruiere nun aus 16 Gadgets den folgenden Graphen:
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{images/lf-5-2.png}
+\end{center}
+Dieser ist nicht $L$-listenfärbbar, denn für jede Färbung $c$ ist Gadget $H(c(p),c(q))$ nicht färbbar.\\
+
+\textbf{Weitere Sätze und Beobachtungen}:
+\begin{itemize}
+	\item Für jeden planaren Graphen gilt $\chi_{\text{list}}(G)\leq 5$
+	
+	$\implies$ Mit obigem Satz folgt $\max\{\chi_{\text{list}}(G)\mid G \text{ planar}\}=5$
+	\item Es gibt einen planaren Graphen mit $\chi(G)\geq 4$
+	\item Für jeden planaren Graphen G gilt $\chi(G)\leq 4$
+	
+	$\implies \chi_{\text{planar}}=4$ 
+\end{itemize}

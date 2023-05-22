@@ -73,3 +73,90 @@ $(3)\implies(2)\implies(1)$ wurde schon bewiesen, $(1)\implies(2)\implies(3)$ m�
 Beweise zunächst folgendes Lemma:\\
 
 \textbf{Lemma}: Sei $G$ minimal nicht-planar, $xy\in E(G)$. Dann ist $G-x-y$ ein Kreis.
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+	\centering
+	\vspace{30pt}
+	\includegraphics[width=0.22\textwidth]{images/wagner-1.png}
+	\vspace{40pt}
+	\vspace{-60pt}
+\end{wrapfigure}
+\textit{Beweis}: Da $G$ minimal nicht-planar ist,
+\begin{itemize}
+	\item ist $G$ zusammenhängend, da ansonsten Knoten aus einer Zusammenhangskomponente gelöscht werden könnte
+	\item ist $\text{deg}(v)\geq 3$ für jeden Knoten $v\in V(G)$, denn Knoten von Grad 0 und 1 tragen nichts zur Nicht-Planarität bei, können also gelöscht werden ohne die Nicht-Planarität zu verlieren. Für einen Knoten $v$ von Grad 2 mit Kanten $e, e'$ bleibt $G/e$ nicht-planar. Wäre $G/e$ planar, so muss wegen $G = (G/e) \circ e'$ bereits $G$ planar sein. Widerspruch.
+\end{itemize}
+
+Das Lemma wird nun anhand von 3 Behauptungen bewiesen.
+
+\underline{1. Behauptung}: $G-x-y$ enthält kein $\Theta$.
+
+\textbf{Theta-Graphen} sind Unterteilungen des Graphen mit zwei Knoten und drei parallelen Kanten.
+\begin{center}
+	\includegraphics[width=0.3\textwidth]{images/theta.png}
+\end{center}
+\pagebreak
+
+
+\textbf{Notation}: Für einen Kreis $C$ in einer planaren Zeichnung erhält man eine geschlossene \textbf{Jordankurve}, die die Ebene in zwei Komponenten unterteilt:
+\begin{itemize}
+	\item $\text{int}(C)$, das Innere von $C$
+	\item $\text{ext}(C)$ , das Äußere von $C$
+\end{itemize}
+\begin{wrapfigure}{r}{0.25\textwidth}
+	\centering
+	\vspace{-70pt}
+	\includegraphics[width=0.22\textwidth]{images/jordan.png}
+	\vspace{40pt}
+	\vspace{-60pt}
+\end{wrapfigure}
+
+\textit{Beweis von Behauptung 1}:
+\begin{itemize}
+	\item Angenommen $G-x-y$ enthält ein $\Theta$.
+	\item $G'\coloneqq G/xy$ ist planar mit Kante $xy$ zu Knoten $z$ kontrahiert.
+	\item $G'-z=G-x-y$ ist ebenfalls planar.
+	\item Zeichnung von $G'$ enthält ein $\Theta$ und das $\Theta$ hat 3 Kreise:
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/wagner-2.png}
+	\end{center}
+	\item Betrachte Kreis $C$ im $\Theta$, sodass Knoten $z$ auf einer Seite von $C$ und eine Kante $e'\in E(\Theta)$ auf der anderen Seite von $C$ liegt.
+	\item Wähle $\Theta$ und $C$ so, dass die Seite von $C$ mit $z$ inklusionsminimal ist, d.h. es gibt kein anderes $\Theta$ mit Kreis $C$, was $z$ enthält und ein kleineres Inneres hat
+	\item O.B.d.A. gilt $z\in\text{int}(C)$ und $e'\in\text{ext}(C)$
+	\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-3.png}
+	\end{center}
+	\item Betrachte $G''=G-\text{ext}(C)$.
+	\item Da $e'\notin G''$ ist, wird mindestens eine Kante gelöscht, also ist $G''$ planar.
+	\item Betrachte eine planare Zeichnung von $G''$ mit Kreis $C$.
+\end{itemize}
+
+\underline{Ziel}: Zeige, dass $C$ eine Facette berandet, denn dann kann $\text{ext}(C)$ in $C$ eingesetzt werden, was aber eine planare Zeichnung von $G$ wäre. \Lightning
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/wagner-4.png}
+\end{center}
+
+\begin{itemize}
+	\item Betrachte Pfad $P$ in $G''$, der auf verschiedenen Knoten von $C$ startet und endet und ansonsten zu C disjunkt ist.
+	\item $P$ entspricht auch einem Pfad $P'$ in $G'$.
+\end{itemize}
+
+Wenn $z\notin P'$:
+\begin{itemize}
+	\item Dann ist $C\cup P'$ ein $\Theta$ in $G-x-y$.
+	\item Dieses $\Theta$ hat einen Kreis der $z$ enthält, aber ein kleineres Inneres als $C$ hat.
+	\item Widerspruch zur Wahl von $\Theta$ und $C$.
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/wagner-5.png}
+\end{center}
+
+Also liegt $z$ auf $P'$ und $P$ muss $x$ oder $y$ enthalten. Also liegt jeder solche Pfad in der Zeichnung von $G''$ auf der Seite von $C$, die $xy$ enthält. 
+\begin{center}
+	\includegraphics[width=0.42\textwidth]{images/wagner-6.png}
+\end{center}
+
+$\implies$ $C$ liegt im Rand einer Facette von $G''$
+
+Damit ist \textit{Behauptung 1} bewiesen.
+

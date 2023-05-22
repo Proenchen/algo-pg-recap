@@ -79,7 +79,7 @@ Beweise zunächst folgendes Lemma:\\
 	\vspace{30pt}
 	\includegraphics[width=0.22\textwidth]{images/wagner-1.png}
 	\vspace{40pt}
-	\vspace{-60pt}
+	\vspace{-80pt}
 \end{wrapfigure}
 \textit{Beweis}: Da $G$ minimal nicht-planar ist,
 \begin{itemize}
@@ -87,7 +87,7 @@ Beweise zunächst folgendes Lemma:\\
 	\item ist $\text{deg}(v)\geq 3$ für jeden Knoten $v\in V(G)$, denn Knoten von Grad 0 und 1 tragen nichts zur Nicht-Planarität bei, können also gelöscht werden ohne die Nicht-Planarität zu verlieren. Für einen Knoten $v$ von Grad 2 mit Kanten $e, e'$ bleibt $G/e$ nicht-planar. Wäre $G/e$ planar, so muss wegen $G = (G/e) \circ e'$ bereits $G$ planar sein. Widerspruch.
 \end{itemize}
 
-Das Lemma wird nun anhand von 3 Behauptungen bewiesen.
+Das Lemma wird nun anhand von 3 Behauptungen bewiesen.\\
 
 \underline{1. Behauptung}: $G-x-y$ enthält kein $\Theta$.
 
@@ -152,11 +152,34 @@ Wenn $z\notin P'$:
 \end{center}
 
 Also liegt $z$ auf $P'$ und $P$ muss $x$ oder $y$ enthalten. Also liegt jeder solche Pfad in der Zeichnung von $G''$ auf der Seite von $C$, die $xy$ enthält. 
-\begin{center}
-	\includegraphics[width=0.42\textwidth]{images/wagner-6.png}
-\end{center}
+
 
 $\implies$ $C$ liegt im Rand einer Facette von $G''$
 
-Damit ist \textit{Behauptung 1} bewiesen.
+Damit ist \textit{Behauptung 1} bewiesen.\\
+
+\begin{wrapfigure}{r}{0.15\textwidth}
+	\centering
+	\vspace{-30pt}
+	\includegraphics[width=0.15\textwidth]{images/wagner-7.png}
+	\vspace{40pt}
+	\vspace{-1000pt}
+\end{wrapfigure}
+\underline{2. Behauptung}: $G-x-y$ enthält keine zwei Knoten vom Grad 1.
+
+\textit{Beweis von Behauptung 2}: 
+\begin{itemize}
+	\item Angenommen $u,v$ sind zwei Knoten in $G-x-y$ mit Grad 1.
+	\item Da $\text{deg}(u),\text{deg}(v)\geq 3$ in $G$, sind $ux, uy, vx, vy \in E(G)$ und $u,v,x,y$ bilden ein $\Theta$
+	\item Nach Behauptung 1 hat jede Kante in $G$ mindestens einen Endpunkt in $u, v, x, y$, um das $\Theta$ bei Kontraktion einer beliebigen Kante zu zerstören.
+	\item Jedes $w\neq u, v, x, y$ ist zu $u$, $v$ oder beiden benachbart, da $\text{deg}(w)\geq 3$.
+	\item Höchstens 2 Knoten außerhalb von $u, v, x, y$.
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{images/wagner-8.png}
+	\end{center}
+\end{itemize}
+
+$\implies$ In allen Fällen ergibt sich ein Widerspruch zur Nicht-Planarität von $G$.
+
+Damit ist \textit{Behauptung 2} bewiesen.\\
 

@@ -183,3 +183,26 @@ $\implies$ In allen Fällen ergibt sich ein Widerspruch zur Nicht-Planarität vo
 
 Damit ist \textit{Behauptung 2} bewiesen.\\
 
+\textbf{Definition}: Ein Graph enthält genau dann kein $\Theta$, wenn jede Kante auf höchstens einem Kreis liegt. Solche Graphen nennt man \textbf{Kakteen}. Kakteen sind kantendisjunkte Vereinigungen von Kreisen und Brücken.
+\begin{center}
+	\includegraphics[width=0.25\textwidth]{images/kaktus.png}
+\end{center}
+
+\textbf{Definition}: Der \textbf{Block-Cutvertex-Tree} eines zusammenhängenden Graphen $G$ (hier ist $G$ Kaktus) ist ein Baum $T$ mit:
+\begin{itemize}
+	\item $V(T)=\{\text{\textcolor{teal}{Artikulationspunkt} in } G\}\cup\{\text{\textcolor{cyan}{Kreise} in } G\}\cup\{\text{\textcolor{orange}{Brücken} in } G\}$
+	\item $E(T)=\{\textcolor{teal}{v}b\mid \textcolor{teal}{v}\text{ \textcolor{teal}{Artikulationspunkt}}, b \text{ \textcolor{orange}{Brücke}} \text{ oder } \text{\textcolor{cyan}{Kreis}}, \textcolor{teal}{v} \text{ Knoten auf } b \text{ in } G\}$
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.28\textwidth]{images/bct.png}
+\end{center}
+
+\underline{Behauptung 3}: $G-x-y$ ist tatsächlich ein Kreis.
+
+\textit{Beweis von Behauptung 3}:
+\begin{itemize}
+	\item Sei $T$ Block-Cutvertex-Tree von $G-x-y$.
+	\item Wenn $G-x-y$ keinen Artikulationspunkt enthält, ist $G-x-y$ ein Kreis (Beweis fertig)  oder eine Kante. Dann gilt $|V(G)|\leq 4$, da $G$ höchstens nur die Knoten $x,y$ und die Endpunkte der Kante enthält
+	$\implies$ $G$ ist planar \Lightning
+	\item Also gibt es Artikulationspunkte und $|T|\geq 2$
+\end{itemize}

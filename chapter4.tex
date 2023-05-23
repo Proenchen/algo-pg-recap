@@ -204,5 +204,140 @@ Damit ist \textit{Behauptung 2} bewiesen.\\
 	\item Sei $T$ Block-Cutvertex-Tree von $G-x-y$.
 	\item Wenn $G-x-y$ keinen Artikulationspunkt enthält, ist $G-x-y$ ein Kreis (Beweis fertig)  oder eine Kante. Dann gilt $|V(G)|\leq 4$, da $G$ höchstens nur die Knoten $x,y$ und die Endpunkte der Kante enthält
 	$\implies$ $G$ ist planar \Lightning
-	\item Also gibt es Artikulationspunkte und $|T|\geq 2$
+	\item Also gibt es Artikulationspunkte und $|T|\geq 2$.
+	\item Also hat $T$ mindestens 2 Blätter.
+	\item Blätter im Block-Cutvertex-Tree sind entweder Brücken oder Kreise im ursprünglichen Graphen. Brücken führen immer zu Grad 1 Knoten. Nach Behauptung 2 gibt es ein Blatt in $T$, das in $G$ ein Kreis $C$ hat.
+	\item Sei $v$ der Artikulationspunkt in $C$, der $C$ an den Graphen \enquote{klebt}.
+	\item Jedes $u\in V(C)-v$ hat Grad 2 in $G-x-y$ (da Blatt im Cutvertex-Tree), aber mindestens Grad 3 in $G$.
+	\item Also ist jedes $u$ zu $x$ oder $y$ benachbart. $u$ kann nicht zu beiden benachbart sein, da sonst $G-v-w$ ein $\Theta$ enthält.
+	\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-9.png}
+	\end{center}
+	\item Ebenso darf $C$ nur Länge 3 haben, da sonst $G-v-w$ ebenso wieder ein $\Theta$ bildet.
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/wagner-10.png}
+	\end{center}
+	\item Dann hat $C\cup\{x,y\}$ ein $\Theta$ in $G$.
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/wagner-11.png}
+	\end{center}
+	\item Nach Behauptung 1 hat jede Kante mindestens einen Endpunkt im $\Theta$. 
+	\item Jedes $w\in G-(C\cup\{x,y\})$ hat alle Nachbarn in $C\cup\{x,y\}$, sonst gäbe es eine Kante außerhalb des $\Theta$. $w$ muss genau die Nachbarschaft $\{x,y,v\}$ haben, denn $w$ kann nicht zu $s$ oder $t$ benachbart sein, da diese Grad 2 haben.
+	\item Würden zwei solche $w,w'$ existieren, so wäre $w,w',x,y$ ein $\Theta$ in $G-C$.
+	\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-12.png}
+	\end{center}
+	
+	$\implies$ Also ist $w$ der einzige Knoten in $G-(C\cup\{x,y\})$.
+	\item O.B.d.A sei $sx\in E$. Es gilt entweder $ty\in E$ oder $tx\in E$.
+		\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-13.png}
+	\end{center}
+	\item Wir wissen, dass $G$ nur die Knoten $v, s, t, x, y, w$ besitzt.
+	\item Wenn $vx\in E$ der $vy\in E$, dann gibt es ein $\Theta$ in $G-s-t$.
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/wagner-14.png}
+	\end{center}
+	\item Wenn $tx\in E$, dann gibt es ein $\Theta$ in $G-w-y$.
+	\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-15.png}
+	\end{center}
+	\pagebreak
+
+	\item Insgesamt wissen wir $vx\notin E, vy\notin E, tx\notin E, ty\in E, ws\notin E, wt\notin E$. Wir kennen also ganz $G$ und $G$ ist planar. Widerspruch.
+	\begin{center}
+		\includegraphics[width=0.27\textwidth]{images/wagner-16.png}
+	\end{center}
 \end{itemize}
+
+Damit sind \textit{Behauptung 3} und das \textit{Lemma} bewiesen.\\
+
+\textit{Beweis von Wagner - Abschluss}: 
+\begin{itemize}
+	\item Sei $xy\in E$ eine Kante und $C$ der Kreis $G-x-y$.
+	\item Sei $uv\in E$ eine Kante auf $C$ mit $ux\in E$.
+\end{itemize}
+
+1. Fall: $uy\notin E$.
+\begin{itemize}
+	\item $G-u-x$ ist ein Kreis, d.h. $v$ muss Grad 2 haben, also ist $vy\in E$.
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/wagner-17.png}
+	\end{center}
+	\item Wenn $vx\in E$ dann hat $G-x-v$ einen Knoten $u$ mit Grad 1. \Lightning
+	
+	$\implies vx\notin E$
+	\item Analoge Argumente liefern: $N(x), N(y)$ sind auf $C$ disjunkt und alternierend.
+	\item $|C|\geq 4$ und wir finden einen $K_{3,3}$-Minor.
+	\begin{center}
+		\includegraphics[width=0.23\textwidth]{images/wagner-18.png}
+	\end{center}
+\end{itemize}
+
+2. Fall: Jeder Knoten auf $C$ ist zu $x$ und $y$ benachbart.
+\begin{itemize}
+	\item $|C|\geq 3$. Wir finden einen $K_5$-Minor.
+	\begin{center}
+		\includegraphics[width=0.23\textwidth]{images/wagner-19.png}
+	\end{center}
+\end{itemize}
+
+Damit ist der \textbf{Satz von Wagner} bewiesen.\\
+
+Wir beweisen nun (2) $\implies$ (3).\\
+
+\textbf{Lemma}: Seien $G,H$ Graphen. Maximaler Grad von $H$ höchstens 3, d.h. $\Delta(H)\leq 3$. Dann sind äquivalent:
+\begin{itemize}
+	\item $G$ enthält $H$-Minor
+	\item $G$ enthält $H$-Unterteilung
+\end{itemize}
+
+\textit{Beweis}: Die Richtung Unterteilung $\implies$ Minor wurde bereits gezeigt. Beweise nun also die Rückrichtung. In einem $H$-Minor finden wir $H$-Unterteilung.
+\begin{itemize}
+	\item O.B.d.A ist ist jede Kontraktionsmenge ein Baum, sodass
+	\begin{itemize}
+		\item jedes Blatt hat Nachbarn in anderer Menge,
+		\item zwischen je zwei Mengen ist maximal eine Kante
+	\end{itemize}
+	Überflüssige Kanten können gelöscht werden.
+	\item Wähle Knoten von maximalem Grad in jeder Menge.
+	\item Dann bilden diese Bäume schon eine H-Unterteilung, da $\Delta(H)\leq 3$.
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/m-u.png}
+	\end{center}
+\end{itemize}
+\pagebreak
+
+\textit{Beweis von Kuratowski}: Es muss nur noch die Richtung $G$ nicht planar $\implies$ $G$ enthält eine $K_5$ oder $K_{3,3}$-Unterteilung bewiesen werden.
+\begin{itemize}
+	\item Sei also $G$ nicht planar. Wir müssen Unterteilung von $K_{3,3}$ oder $K_5$ finden.
+	\item Nach Wagner gibt es einen $K_{3,3}$- oder $K_5$-Minor in $G$.
+	\item Bei $K_{3,3}$-Minor, sind wir nach vorigem Lemma fertig.
+\end{itemize}
+Sonst: Induktion über Knotenzahl von $G$:
+\begin{itemize}
+	\item I.A.: $G$ muss mindestens $5$ Knoten besitzen, um nicht-planar zu sein, und dort kommt auch nur $K_5$ in Frage.
+	\item I.S.: Wenn es sich beim $K_5$-Minor um einen $K_5$-Teilgraph handelt, dann sind wir fertig. Andernfalls gibt es $e = uv$, sodass $G / e$ immer noch einen $K_5$-Minor enthält. $G/e$ ist also immer noch nicht-planar. Nach IV existiert eine $K_{3,3}$- oder $K_5$-Unterteilung in $G/ e$. Sei $w$ der Knoten, zu dem $e$ kontrahiert wird. 
+	\begin{itemize}
+		\item Wenn $w$ in der Unterteilung ein Unterteilungspunkt ist (also $\text{deg}(w)=2$), gibt es auch solch eine Unterteilung in $G$.
+		\item Wenn $\text{deg}(w)=3$ in Unterteilung, gibt es auch in $G$ eine Unterteilung.
+		\begin{center}
+			\includegraphics[width=0.29\textwidth]{images/kuratowski-1.png}
+		\end{center}
+	\item Also o.B.d.A. $\text{deg}(w)=4$ in $K_5$-Unterteilung in $G/e$.
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/kuratowski-2.png}
+	\end{center}
+	\item Betrachte die vier anderen Knoten von Grad 4.
+	\item Sind mindestens drei davon zu $u$ verbunden, finden wir wieder eine $K_5$-Unterteilung in $G$.
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/kuratowski-3.png}
+	\end{center}
+	\item Andernfalls sind zwei zu $u$ und zwei zu $v$ verbunden und wir finden eine $K_{3,3}$-Unterteilung in $G$.
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/kuratowski-4.png}
+	\end{center}
+	\end{itemize}
+\end{itemize}
+
+Damit wurde der \textbf{Satz von Kuratowski} bewiesen.

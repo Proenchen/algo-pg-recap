@@ -1,1 +1,109 @@
-\section{Testen von Planarität}
+\section{Separatoren in planaren Graphen}
+
+\textbf{Definition}: Eine Menge $S\subset V$ heißt Separator von $G = (V, E)$, falls der durch $V\setminus S$ induzierte Subgraph von $G$ unzusammenhängend ist.
+
+\begin{center}
+	\includegraphics[width=0.2\textwidth]{images/separator.png}
+\end{center}
+\bigskip
+\textbf{Minimum-Balanced-Separator-Problem}: Gegeben sei ein Graph $G = (V, E)$. Finde eine Partition von $V$ in drei Mengen $V_1, V_2$ und $S$, wobei der Separator $S$ minimale Kardinalität hat und $V_1$ von $V_2$ trennt mit $|V_1|,|V_2|\leq\alpha\cdot|V|$ und $\frac{1}{2}\leq\alpha<1$ konstant.
+\begin{itemize}
+	\item Separator soll also klein sein
+	\item Separator soll etwa gleich große Teilgraphen erzeugen
+	\item Problem ist NP-schwer
+\end{itemize}
+\bigskip
+\textbf{Planar-Separator-Theorem}: Die Knotenmenge eines zusammenhängenden, planaren Graphen $G = (V, E)$, $n = |V| \geq 5$, kann so in drei Mengen $V_1, V_2, S\subseteq V$ partitioniert werden, dass
+\begin{itemize}
+	\item $|V_1|,|V_2|\leq\frac{2}{3}\cdot n$
+	\item $S$ ist ein Separator, der $V_1$ von $V_2$ trennt
+	\item $|S| \leq 4\cdot\sqrt{n}$
+\end{itemize}
+
+Für den Beweis dieses Satzes benötigen wir folgendes Lemma.\\
+
+\textbf{Lemma}: Sei $G = (V, E)$ ein planarer, zusammenhängender Graph mit $n = |V| \geq 5$ und $T=(V,E(T))$ ein Spannbaum von $G$ mit Wurzel $w$ und Höhe $h$. Die Knotenmenge von $G$ kann so in drei Mengen $V_1, V_2$ und $S$ partitioniert werden, dass
+\begin{itemize}
+	\item $|V_1|,|V_2|\leq\frac{2}{3}\cdot n$
+	\item $S$ ist ein Separator, der $V_1$ von $V_2$ trennt
+	\item $|S|\leq 2\cdot h+1$
+\end{itemize}
+Eine solche Partition kann in $\mathcal{O}(n)$ Zeit konstruiert werden
+
+\textit{Beweis}: 
+\begin{itemize}
+	\item Konstruiere eine Triangulierung von $G$. Nach Satz von Euler hat der neue Graph $3n-6$ Kanten und $2n-4$ Facetten.
+	\item Spannbaum $T$ von $G$ ist Spannbaum des triangulierten Graphen
+	\item In $T$ induziert jede Nichtbaumkante $\{x,y\}$ einen Kreis $K_{x,y}$ mit $\leq 2\cdot h+1$ Knoten (maximal $h$ Knoten in beide Richtungen + Wurzel)
+	\begin{center}
+		\includegraphics[width=0.15\textwidth]{images/pst-1.png}
+	\end{center}
+	\item Sei $\text{Inneres}(K_{x,y})$ die Knoten, die innerhalb des Kreises, aber nicht auf dem Rand des Kreises liegen. Definiere $\text{Äußeres}(K_{x,y})$ dementsprechend.
+	\item Wähle Nichtbaumkante $\{x,y\}$ aus, wobei $|\text{Inneres}(K_{x,y})|\geq|\text{Äußeres}(K_{x,y})|$
+	\item Wennn $|\text{Inneres}(K_{x,y})| \leq \frac{2}{3}n$, dann gilt das Lemma und wir sind fertig
+	\item Sei also  $|\text{Inneres}(K_{x,y})|<\frac{2}{3}n$, dann ist $|\text{Äußeres}(K_{x,y})|<\frac{1}{3}n$
+	\item \underline{Ziel}: Ersetze $\{x,y\}$ durch eine andere Nichtbaumkante, sodass das Innere kleiner wird und das Äußere nicht über $\frac{2}{3}n$ wächst
+	\item Da Graph trianguliert, begrenzt Kante $\{x,y\}$ zwei Dreiecke, von denen eins im $\text{Inneres}(K_{x,y})$ liegt $\implies$ Dreieck $x\;y\;t$
+	\begin{center}
+		\includegraphics[width=0.15\textwidth]{images/pst-2.png}
+	\end{center}
+\end{itemize}
+
+\begin{wrapfigure}{r}{0.15\textwidth}
+	\centering
+	\vspace{0pt}
+	\includegraphics[width=0.15\textwidth]{images/pst-3.png}
+	\includegraphics[width=0.15\textwidth]{images/pst-4.png}
+	\vspace{40pt}
+	\vspace{-800pt}
+\end{wrapfigure}
+
+\underline{Fall 1}: $\{x,t\}\text{ oder } \{t,y\}$ ist eine Baumkante. Ersetze $\{x,y\}$ durch  $\{x,t\}$.
+\begin{itemize}
+	\item Falls $t\notin K_{x,y}$:
+	\begin{itemize}
+		\item $|\text{Äußeres}(K_{x,t})|=|\text{Äußeres}(K_{x,y})|$
+		\item $|\text{Inneres}(K_{x,t})|=|\text{Inneres}(K_{x,y})|-1$
+	\end{itemize}
+	\item Falls $t\in K_{x,y}$:
+	\begin{itemize}
+		\item $|\text{Äußeres}(K_{x,t})|=|\text{Äußeres}(K_{x,y})|+1$
+		\item $|\text{Inneres}(K_{x,t})|=|\text{Inneres}(K_{x,y})|$
+	\end{itemize}
+\end{itemize}
+\bigskip
+\underline{Fall 2}: $\{x,t\}\text{ und } \{t,y\}$ sind beides Nichtbaumkanten.
+\begin{itemize}
+	\item Sei $|\text{Inneres}(K_{x,t})|\geq |\text{Inneres}(K_{t,y})|$. Ersetze $\{x,y\}$ durch  $\{x,t\}$.
+	\begin{center}
+		\includegraphics[width=0.15\textwidth]{images/pst-5.png}
+	\end{center}
+	\item $|\text{Äußeres}(K_{x,t})|\leq n-(|\text{Inneres}(K_{x,t})|+P)\leq n-\frac{1}{2}|\text{Inneres}(K_{x,y})|< n-\frac{1}{2}\cdot\frac{2}{3}n=\frac{2}{3}n$
+	\item $|\text{Inneres}(K_{x,t})|\leq|\text{Inneres}(K_{x,y})|-1$
+\end{itemize}
+\bigskip
+In beiden Fällen verkleinern wir $|\text{Inneres}(K_{x,y})|$ und lassen $|\text{Äußeres}(K_{x,y})|$ klein genug. Dies kann nun so lange wiederholt werden, bis auch $|\text{Inneres}(K_{x,y})| \leq \frac{2}{3}n$ gilt.
+
+$\implies$ Partition mit den gewünschten Eigenschaften lässt sich konstruieren. Wir müssen nun noch deren Implementation in linearer Laufzeit sicherstellen.
+
+\begin{itemize}
+	\item Ersetzung einer Nichtbaumkante durch eine andere, welche die Anzahl der Dreiecke im Inneren reduziert $\implies$ Höchstens $2n-4$ Schritte
+	\item In Fall 1 können wir $|\text{Inneres}(K_{x,y})|$ und $|\text{Äußeres}(K_{x,y})|$ in $\mathcal{O}(1)$ berechnen
+	\item Für Fall 2 muss entschieden werden, ob $|\text{Inneres}(K_{x,t})|$ oder $|\text{Inneres}(K_{t,y})|$ größer ist. Zeige, dass auch dieser Fall nur konstante Zeit benötigt mithilfe einer amortisierten Analyse.
+	\item Führe dazu folgende Vorberechnung durch:
+	\begin{itemize}
+		\item Durchlaufe $T$ von den Blättern zur Wurzel
+		\item Speichere für jeden Knoten $v$ und inzidente Baumkanten die Anzahl Knoten im Unterbaum links bzw. rechts der Kante
+		\item Dies kann einmalig in Linearzeit durchgeführt werden
+	\end{itemize}
+	\item Laufe von $x$ und $y$ abwechselnd in Richtung Wurzel bis erstmals $v$, d.h. Weg von $t$ zur Wurzel, erreicht wird.
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{images/pst-6.png}
+	\end{center}
+	\item $|\text{Inneres}(K_{x,t})|=D+B$
+	\item $|\text{Inneres}(K_{t,y})|=A-D-B-W$
+\end{itemize}
+\bigskip
+Die Anzahl der Operationen in einem Schritt ist proportional zu der Anzahl der Knoten in dem Teil von $K_{x,y}$, der nicht weiter betrachtet wird. Also ist auch Fall 2 in amortisiert konstanter Zeit implementierbar.
+
+Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.

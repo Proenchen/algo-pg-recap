@@ -106,4 +106,54 @@ $\implies$ Partition mit den gewünschten Eigenschaften lässt sich konstruieren
 \bigskip
 Die Anzahl der Operationen in einem Schritt ist proportional zu der Anzahl der Knoten in dem Teil von $K_{x,y}$, der nicht weiter betrachtet wird. Also ist auch Fall 2 in amortisiert konstanter Zeit implementierbar.
 
-Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.
+Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.\\
+
+\textbf{BFS-Lemma}: Sei $T = (V,E(T))$ ein BFS-Baum von $G = (V , E)$. Für eine Nichtbaumkante $\{u,v\}$ gilt $|\text{level}(u)-\text{level}(v)|\leq 1$.\\
+
+\textit{Beweis des Planar-Separator-Theorem}: 
+\begin{itemize}
+	\item Konstruiere eine Triangulierung von $G$ und ein BFS-Baum $T$ mit beliebiger Wurzel
+	\item Sei $\mu$ das Level mit der Eigenschaft:
+	\begin{center}
+		\includegraphics[width=0.26\textwidth]{images/pst-7.png}
+	\end{center}
+	\item Wenn $|\text{level } \mu|\leq 4\sqrt{n}$, dann ist $\mu$ ein geeigneter Separator und wir sind fertig.
+	\item Sei also $|\text{level } \mu|> 4\sqrt{n}$.
+	\item Sei $m$ das unterste Level oberhalb von $\mu$ und $M$ das oberste Level unterhalb von $\mu$ mit $|S_m|\leq\sqrt{n}$ und $S_M\leq\sqrt{n}$.
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/pst-8.png}
+	\end{center}
+	\item Offensichtlich gilt $|A_1|\leq\frac{n}{2} \text{ und auch }|A_3|\leq\frac{n}{2}$, da schon $>\frac{n}{2}$ Knoten über $\mu$ 
+\end{itemize}
+\medskip
+\underline{Fall 1}: $|A_2|\leq\frac{2}{3}n$
+\begin{itemize}
+	\item $S=\text{level }m\cup\text{level }M$ ist Separator
+	\item $V_1=\max\{A_1,A_2,A_3\}, |V_1|\leq\frac{2}{3}n$
+	\item $V_2=V\setminus(S\cup V_1), |V_2|<\frac{2}{3}n$
+	\item Damit wurde ein geeigneter Separator gefunden und wir sind fertig
+\end{itemize}
+
+\underline{Fall 2}: $|A_2|>\frac{2}{3}n$
+\begin{itemize}
+	\item Verschmelze die Knoten in $A_1\cup S_m$ zu einem Knoten $s$  und entferne alle Knoten aus $S_M\cup A_3$. Dadurch entsteht ein neuer Graph $G'$.
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/pst-9.png}
+	\end{center}
+	\item BFS-Baum $T$ induziert BFS-Baum $T'$ in $G'$
+	\item $T'$ hat maximal Höhe $\sqrt{n}$, da $|V'|\leq n$ und durch die Wahl von $m$ und $M$ für jede Schicht $S_i$ zwischen $m$ und $M$ $|S_i|>\sqrt{n}$ gilt
+	\item Wende obiges Lemma auf $G'$ und $T'$ an und erhalte $S', U_1, U_2$
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/pst-10.png}
+	\end{center}
+	\item Sei $S=S'\cup\text{level } m\cup\text{level } M$
+	\item Nach dem Lemma folgt $|S'|\leq 2\sqrt{n}+1$, also $|S|\leq4\sqrt{n}$
+	\item Sei $V_1=\max\{U_1,U_2\}.$ Nach dem Lemma gilt $|V_1|\leq\frac{2}{3}n$
+	\item Weiterhin gilt $|V_1|+|S|>|V_1|+|S'|>\frac{1}{2}\cdot A_2$. Setzt man also $V_2=V\setminus(S\cup V_1)$, dann gilt $|V_2|=n-|V_1|-|S|<n-\frac{1}{2}\cdot |A_2|<\frac{2}{3}n$
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/pst-11.png}
+	\end{center}
+\end{itemize}
+
+Auch hier findet man also einen geeigneten Separator, womit das \textbf{Planar-Separator-Theorem} bewiesen ist.
+

@@ -1,0 +1,90 @@
+\section{Matchings und Maximum Independent Set}
+
+\texttt{MAXIMUM INDEPENDENT SET}: Für $G = (V, E)$, finde eine \textbf{größte unabhängige Menge}.
+Also Knotenmenge $I\subseteq V$ mit $|I|$ maximal, sodass jede Kante in $E$ höchstens einen Endpunkt in $I$ hat.\\
+
+\textbf{Approximationsalgorithmus für \texttt{MAXIMUM INDEPENDENT SET}}:
+\begin{enumerate}
+	\item Zerkleinere den Graphen mit Planar Separator, bis Komponenten nur noch $\mathcal{O}(\log\log n)$ Knoten haben
+	\item Löse Komponenten mit Brute-Force in $\mathcal{O}(2^{\log\log n})= \mathcal{O}(\log n)$ Zeit pro Komponente $\rightarrow$ $\mathcal{O}(n\log n)$ Gesamtlaufzeit
+	\item Zusammenfügen ist disjunkte Vereinigung der Teillösungen (Kein Problem an Schnittpunkten, da Separator dazwischen)
+\end{enumerate}
+\medskip
+\textbf{Güte der Approximation}:
+
+\begin{itemize}
+	\item \textbf{Satz}: Wiederholtes Anwenden des planar Separators gibt Komponenten der Größe $\mathcal{O}(r)$ bei Separator-Gesamtgröße $\mathcal{O}(n/\sqrt{r})$
+	
+	\textit{ohne Beweis.}
+	
+	\item Mit obigem Satz folgt Separator-Gesamtgröße $|S|\leq\mathcal{O}(n/\sqrt{\log\log n})$
+	\item Für optimale Lösung $OPT(G)$ gilt $OPT(G)\geq n/4$ nach Vier-Farben-Satz
+	\item Damit folgt:
+	$$
+	\begin{aligned}
+		& OPT(G)-A(G) \leq|S| \leq \mathcal{O}\left(\frac{n}{\sqrt{\log \log n}}\right) \\
+		\Rightarrow A(G) & \geq OPT(G)-\mathcal{O}\left(\frac{n}{\sqrt{\log \log n}}\right) \\
+		& \geq OPT(G)-\mathcal{O}\left(\frac{OPT(G)}{\sqrt{\log \log n}}\right) \\
+		& =OPT(G) \cdot\left(1-\mathcal{O}\left(\frac{1}{\sqrt{\log \log n}}\right)\right)
+	\end{aligned}
+	$$
+	wobei $OPT(G)-A(G) \leq|S|$ gilt, da $A$ für die Separatoren keine Lösungen berechnet und somit die Abweichung von der optimalen Lösung max. so groß ist wie die Kardinalität von $S$.
+\end{itemize}
+\bigskip
+\textbf{Definition}:
+\begin{itemize}
+	\item Kantenmenge $M$ ist ein \textbf{Matching} wenn jeder Knoten zu höchstens einer Kante in $M$ inzident ist.
+	\item Wenn ein Knoten $v$ zu einer Kante in $M$ inzident ist, heißt $v$ \textbf{gematcht}, ansonsten \textbf{ungematcht}.
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/matching.png}
+	\end{center}
+\end{itemize}
+\bigskip
+\texttt{GEWICHTSMAXIMALES MATCHING}: 
+\begin{itemize}
+	\item \textbf{Gegeben}: Graph $G=(V,E)$ und Gewichtsfunktion $w\colon E\rightarrow\R$
+	\item \textbf{Gesucht}: Matching $M\subseteq E$ mit $w(M)=\sum\limits_{e\in M} w(e)$ maximal
+\end{itemize}
+\bigskip
+\textbf{Definition}: Sei $M\subseteq E$ Matching in $(G = (V, E), w)$. Ein $M$-alternierender Weg ist ein einfacher Pfad oder Kreis $P$ in $G$, sodass
+\begin{itemize}
+	\item sich Kanten von $M$ und $E- M$ auf $P$ abwechseln
+	\item wenn $P$ ein Pfad mit Endpunkt $v$ und Kante $e$ an $v$ in $P$ ist, dann ist $e\in M$ oder $v$ ungematcht (verhindert, dass der Pfad verlängert werden kann)
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/alternating-path.png}
+	\end{center}
+\end{itemize}
+Für Matching $M$ und alternierenden Weg $P$ ist auch $M\triangle P\coloneqq (M- P)\cup(P- M)$ (\textbf{symm. Differenz}) ein Matching.
+
+Dabei gilt $w(M\triangle P)-w(M)=w(P- M)-w(P\cap M)$
+
+\begin{center}
+	\includegraphics[width=0.25\textwidth]{images/sym-diff.png}
+\end{center}
+\bigskip
+\textbf{Defintion}: Ein alternierender Weg heißt \textbf{erhöhend} wenn $w(M\triangle P)>w(M)$, also $w(P-M)>w(P\cap M)$.\\
+
+\textbf{Lemma}: Sei $M$ ein Matching in $(G, w)$. Es sind äquivalent:
+\begin{itemize}
+	\item $M$ ist gewichtsmaximal
+	\item Es gibt keinen erhöhenden alternierenden Weg bezüglich $M$
+\end{itemize}
+\pagebreak
+
+\textit{Beweis}: 
+\begin{itemize}
+	\item \enquote{$\Rightarrow$}: Falls es zu $M$ einen erhöhenden Weg gibt, so kann $M$ natürlich nicht maximales Gewicht haben
+	\item \enquote{$\Leftarrow$}: 
+	\begin{itemize}
+		\item Sei $M$ nicht gewichtsmaximal, also gibt es Matching $M^*$ mit $w(M^*)>w(M)$
+		\item Betrachte $M\triangle M^*=(M\cup M^*)\setminus(M\cap M^*)$
+		\begin{center}
+			\includegraphics[width=0.25\textwidth]{images/moag1.png}
+		\end{center}
+		\item $M\triangle M^*$ hat nur Knoten vom Grad 1 oder 2, besteht also aus einfachen Kreisen und Wegen $P_1,\ldots, P_t$
+		\item Jedes $P_i$ ist $M$-alternierender Weg
+		\item Es gilt $w(M^*)-w(M)=\sum\limits_{i=1}^t (w(M^*-P_i)-w(M\cap P_i))$
+		\item Ein Summand ist positiv, da $w(M^*)-w(M)>0$
+		\item Einer der $P_i$ ist also erhöhend, mit $w(M^*\cap P_i)>w(P_i\cap M)$ $\implies$ Es gibt also einen erhöhenden Weg. Widerspruch.
+	\end{itemize}
+\end{itemize}

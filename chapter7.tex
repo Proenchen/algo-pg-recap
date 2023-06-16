@@ -1,0 +1,81 @@
+\section{Mixed Max Cut und Via-Minimierung}
+
+\textbf{Definition}: Ein Schnitt in $G=(V,E)$ ist eine Kantenmenge $C\subseteq E$, die von einer Knotenmenge $A\subseteq V$ folgendermaßen induziert wird:
+$$C=\{uv\in E\mid |A\cap\{u,v\}|=1\}$$
+$C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
+
+\begin{center}
+	\includegraphics[width=0.4\textwidth]{images/cut.png}
+\end{center}
+\pagebreak
+
+\texttt{MIXED-MAX-CUT}: 
+\begin{itemize}
+	\item \textbf{Gegeben}: Graph $G=(V,E)$ und Gewichtsfunktion $w\colon E\rightarrow\R$
+	\item \textbf{Gesucht}: Schnitt $C\subseteq E$ mit $w(C)=\sum\limits_{e\in C} w(e)$ maximal und $C\neq\emptyset$
+\end{itemize}
+\bigskip
+\textbf{Satz}: \texttt{MIXED-MAX-CUT} ist auf planaren Graphen polynomiell lösbar.
+
+\textit{Beweis}: Gegeben einen Graphen $G_0=(V, E_0)$ und $w_0\colon E_0\rightarrow\R$.
+\begin{enumerate}
+	\item Trianguliere $G_0$ zu $G=(V,E)$ und setze $w(e)=0$ für jede Kante $e\in E\setminus E_0$
+	\begin{center}
+		\includegraphics[width=0.19\textwidth]{images/mmc-1.png}
+	\end{center}
+	\textbf{Beobachtung}: Für Schnitt $C$ in $G$ und $C_0=C\cap E_0$ in $G_0$ sind äquivalent:
+	\begin{itemize}
+		\item $A\subseteq V$ induziert $C_0\subseteq E_0$ in $G_0$
+		\item $A\subseteq V$ induziert $C\subseteq E$ in $G$
+	\end{itemize}
+	Außerdem gilt $w(C_0)=w(C)$, also riecht es im Folgenden den triangulierten Graphen anzuschauen. 
+	
+	\textbf{Achtung}: $C_0=\emptyset$ könnte gelten! Das wird später behoben.
+	
+	\item Betrachte Dualgraph $G^*=(F,E^*)$ von $G=(V,E)$.
+	\begin{itemize}
+		\item Setze $w(e^*)=w(e)$ für alle $e\in E$
+		\item $G^*$ ist 3-regulär, d.h. jeder Knoten hat Grad 3
+		\item Für jede Kantenmenge $C^*\subseteq E^*$ hat jeder Dualknoten 0, 1, 2 oder 3 inzidente Kanten in $C^*$
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.18\textwidth]{images/mmc-2.png}
+	\end{center}
+	
+	\textbf{Definition}: Kantenmenge $X\subseteq E^*$ heißt \textbf{gerade}, wenn jeder Knoten zu gerade vielen Kanten in $X$ inzident ist.
+	
+	\textbf{Lemma}: Sei $G = (V , E)$ trianguliert, $G^*$ zu $G$ dual. Dann gilt:
+	$$C\subseteq E \text{ ist Schnitt} \iff C^*\subseteq E^* \text{ ist eine gerade Kantenmenge}$$
+	
+	\textit{Beweis}: 
+	\begin{itemize}
+		\item \enquote{$\Rightarrow$}: Sei $C\subseteq E$ Schnitt in $G$ induziert von $A\subseteq V$. Sei $f\in V(G^*)$ und $e_1^*,e_2^*,e_3^*$ seine drei inzidenten Kanten. Betrachte das zu $f$ zugehöriges Dreieck $v_1,v_2,v_3$ in $G$.
+		\begin{center}
+			\includegraphics[width=0.2\textwidth]{images/mmc-3.png}
+		\end{center}
+		\begin{itemize}
+			\item Ist $|A\cap \{v_1,v_2,v_3\}|=0,3$, dann $|C^*\cap\{e_1^*,e_2^*,e_3^*\}|=0$
+			\item Ist $|A\cap \{v_1,v_2,v_3\}|=1,2$, dann $|C^*\cap\{e_1^*,e_2^*,e_3^*\}|=2$
+		\end{itemize}
+		
+		Also ist $C^*$ gerade.
+		
+		\item \enquote{$\Leftarrow$}: Sei $C^*\subseteq E^*$ eine gerade Kantenmenge in $G^*$. Dann hat jeder Dualknoten 0 oder 2 inzidente Kanten in $C^*$, also ist $C^*$ eine disjunkte Vereinigung von Kreisen und isolierten Punkten $C_1,\ldots,C_k$. Sei nun 
+		$$A=\{v\in V\mid v \text{ ist im Inneren von ungerade vielen Kreisen}\}$$
+		Dann gilt:
+		$$
+		\begin{aligned}
+			& e\in E \text{ ist in } C \\
+			\Leftrightarrow\; & e^*\in C^*\\
+			\Leftrightarrow\; & e^*\in C_i \text{ für ein } i\in\{1,\ldots,k\}\\
+			\Leftrightarrow\; & \text{Endpunkte von } e \text{ liegen auf verschiedenen Seiten von } C_i\\
+			\Leftrightarrow\; & \text{Genau einer der Endpunkte von } e \text{ ist in } A
+ 		\end{aligned}
+		$$
+		Also ist $C$ ein Schnitt.
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/mmc-4.png}
+	\end{center}
+\end{enumerate}
+

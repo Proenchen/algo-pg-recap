@@ -118,14 +118,36 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 \end{enumerate}
 Damit haben wir einen Algorithmus angegeben, der das Problem löst. Im Folgenden betrachten wir die Laufzeit.\\
 
-\textbf{Satz}: In planaren Graphen können gewichtsminimale perfekte Matchings in $\mathcal{O}(n^\frac{2}{3}\log n)$ berechnet werden.
+\textbf{Satz}: In planaren Graphen können gewichtsminimale perfekte Matchings in $\mathcal{O}(n^\frac{3}{2}\log n)$ berechnet werden.
 
 \textit{Beweis}: Reduziere auf gewichtsmaximales Matching.
 \begin{itemize}
 	\item $w'(e)\coloneqq -w(e)$, d.h. maximal bezüglich $w'$ $\iff$ minimal bezüglich $w$
 	\item $w''(e)\coloneqq W+w'(e)$ für großes $W>|V|\cdot\max\limits_{e\in E'} (|w'(e)|)$, also hat max. Matching bzgl. $w''$ die größtmögliche Anzahl Kanten. Damit sind gewichtsmaximale Matchings bzgl. $w''$ perfekt.
 	\item Max. Matchings bzgl. $w''$ entsprechen also genau den min. perfekten Matchings bezüglich $w$.
-	\item Da \texttt{MAX MATCHING} in $\mathcal{O}(n^\frac{2}{3}\log n)$ ist, ist der Satz bewiesen.
+	\item Da \texttt{MAX MATCHING} in $\mathcal{O}(n^\frac{3}{2}\log n)$ ist, ist der Satz bewiesen.
 \end{itemize}
 \bigskip
+Nun muss nur noch $C_0\neq\emptyset$ sichergestellt werden.
+\begin{itemize}
+	\item Für eine Kante $e\in E_0$ wollen wir erzwingen, dass $e\in C_0$
+	\item Also soll $e^*$ nicht in $M$ sein:
+	\begin{itemize}
+		\item Unterteile dafür $e^*$ mit Knoten $b$ und setze für die neu entstandenen Kanten $e_1,e_2$ die Gewichte $w(e_1)=w(e^*)$ und $w(e_2)=0$
+		\item Füge Kante $e'=bc$ mit neuem Knoten $c$ hinzu und setze $w(e')=0$
+		\item Jedes perfekte Matching muss dann $e'$ enthalten
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/mmc-8.png}
+	\end{center}
+	\item Um den besten Schnitt zu erhalten, wiederholt man den Vorgang für jede Kante $e\in E_0$
+	\item Wir erhalten so die Laufzeit $\mathcal{O}(n^\frac{3}{2}\log n)\cdot\mathcal{O}(n)=\mathcal{O}(n^\frac{5}{2}\log n)$. $\mathcal{O}(n^\frac{3}{2}\log n)$ ist aber möglich!
+\end{itemize}
 
+Damit ist der Beweis abgeschlossen. Es folgt eine Übersicht über den Algorithmus.
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/mmc-9.png}
+\end{center}
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{images/mmc-10.png}
+\end{center}

@@ -77,5 +77,55 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 	\begin{center}
 		\includegraphics[width=0.2\textwidth]{images/mmc-4.png}
 	\end{center}
+
+	Wir suchen jetzt also eine gewichtsmaximale gerade Kantenmenge $C^*$ in $G^*$. Das heißt, jeder Knoten hat Grad 0 oder 2 in $C^*$.
+	
+	\item Modifiziere $G^*=(F,E^*)$ zu $G'=(V',E')$ wie folgt:
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/mmc-5.png}
+	\end{center}
+	Ursprüngliche Kanten behalten ihr Gewicht und neue Kanten erhalten Gewicht 0. $G'$ ist wieder planar und 3-regulär.\\
+	
+	\textbf{Definition}: Sei $k\in\N$ eine Zahl. Eine Kantenmenge $X\subseteq E$ heißt \textbf{$\mathbf{k}$-Faktor}, wenn jeder Knoten zu genau $k$ Kanten in $X$ inzident ist.
+	\begin{itemize}
+		\item 1-Faktoren heißen auch \textbf{perfekte Matchings}
+	\end{itemize}
+
+	\textbf{Lemma}: 
+	\begin{itemize}
+		\item Für jede gerade Menge $C^*\subseteq E^*$ existiert ein 2-Faktor $C'\subseteq E'$ mit $C'\cap E^*=C^*$
+		\item Für jeden 2-Faktor $C'\subseteq E'$ ist $C^*=C'\cap E^*$ eine gerade Menge
+		\item Es gilt $w(C')=w(C^*)$
+	\end{itemize}
+	\pagebreak
+	
+	\textit{Beweis}: 
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/mmc-6.png}
+	\end{center}
+
+	Wir suchen jetzt also einen gewichtsmaximalen 2-Faktor $C'$ in $G'$.
+	
+	\item Betrachte 1-Faktoren (perfekte Matchings) statt 2-Faktoren.
+	\begin{itemize}
+		\item Da $G'$ 3-regulär ist, ist das Komplement eines 2-Faktors $C'$ in $G'$ ein perfektes Matching $M$. $$M=E'-C'$$
+		\item 2-Faktor $C'$ ist gewichtsmaximal genau dann, wenn das komplementäre perfekte Matching $M$ gewichtsminimal ist
+		$$w(M)=w(E)-w(C')$$
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/mmc-7.png}
+	\end{center}
 \end{enumerate}
+Damit haben wir einen Algorithmus angegeben, der das Problem löst. Im Folgenden betrachten wir die Laufzeit.\\
+
+\textbf{Satz}: In planaren Graphen können gewichtsminimale perfekte Matchings in $\mathcal{O}(n^\frac{2}{3}\log n)$ berechnet werden.
+
+\textit{Beweis}: Reduziere auf gewichtsmaximales Matching.
+\begin{itemize}
+	\item $w'(e)\coloneqq -w(e)$, d.h. maximal bezüglich $w'$ $\iff$ minimal bezüglich $w$
+	\item $w''(e)\coloneqq W+w'(e)$ für großes $W>|V|\cdot\max\limits_{e\in E'} (|w'(e)|)$, also hat max. Matching bzgl. $w''$ die größtmögliche Anzahl Kanten. Damit sind gewichtsmaximale Matchings bzgl. $w''$ perfekt.
+	\item Max. Matchings bzgl. $w''$ entsprechen also genau den min. perfekten Matchings bezüglich $w$.
+	\item Da \texttt{MAX MATCHING} in $\mathcal{O}(n^\frac{2}{3}\log n)$ ist, ist der Satz bewiesen.
+\end{itemize}
+\bigskip
 

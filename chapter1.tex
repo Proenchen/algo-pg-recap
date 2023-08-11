@@ -16,19 +16,19 @@
 	\item Kante $e = uv$ ist injektive, stetige Kurve von $u$ nach $v$, d.h. $\gamma_e\colon [0,1] \rightarrow \R^2$ mit 
 	\begin{itemize}
 		\item $\gamma_e(0) = u$ und $\gamma_e(1) = v$
-		\item $\gamma_e(0) \notin V$ für alle $0<t<1$
+		\item $\gamma_e(t) \notin V$ für alle $0<t<1$
 	\end{itemize}
 \end{enumerate}
 \medskip
 \begin{itemize}
-	\item Zeichnung heißt \textbf{kreuzungsfrei} bzw. \textbf{planar} wenn für je zwei Kanten $e, e'$ und $0 < t, t' < 1$ gilt: $\gamma_e(t)\neq\gamma_e(t')$
+	\item Zeichnung heißt \textbf{kreuzungsfrei} bzw. \textbf{planar} wenn für je zwei Kanten $e, e'$ und $0 < t, t' < 1$ gilt: $\gamma_e(t)\neq\gamma_{e'}(t')$
 	\item Graph heißt \textbf{planar}, wenn er mindestens eine kreuzungsfreie Zeichnung besitzt
 \end{itemize}
 \bigskip
 \textbf{Definition}: Für $n\in\N$ ist der \textbf{vollständige Graph} $K_n$
 \begin{itemize}
 	\item $V(K_n)=\{v_1,\ldots,v_n\}$
-	\item $E(K_n)=\{v_iv_j\mid v_i,v_j\in V, i\neq j\}$
+	\item $E(K_n)=\{v_iv_j\mid i,j\in \{1,\ldots,n\}, i\neq j\}$
 \end{itemize}
 \begin{center}
 	\includegraphics[width=0.6\textwidth]{images/k.png}
@@ -50,7 +50,7 @@
 	\item Kanten $v_1v_3, v_3v_5, v_5v_1$ bilden geschlossene Kurve in $\R^2$ die $v_2$ und $v_4$ trennt $\implies$ $v_2v_4$ kann nicht kreuzungsfrei gezeichnet sein
 \end{itemize}
 \bigskip
-\textbf{Definition}: Für $m,n\in\N$ ist der vollständig bipartite Graph $K_{m,n}$
+\textbf{Definition}: Für $m,n\in\N$ ist der \textbf{e} $K_{m,n}$
 \begin{itemize}
 	\item $V(K_{m,n})=\{a_1,\ldots,a_m\}\cup\{b_1,\ldots,b_n\}$
 	\item $E(K_{m,n})=\{a_ib_j \mid i \in\{1, \ldots, m\}, j \in\{1, \ldots,n\}\}$
@@ -115,7 +115,7 @@ Beide Ungleichungen sind bestmöglich.
 \begin{itemize}
 	\item O.B.d.A. $G$ ist zusammenhängend, da man Kanten einfügen kann bis er das ist
 	\item Jede Facette ist berandet von min. 3 Kantenseiten, da $n\geq 3$ 
-	\item Jede Kantenseite in genau eine Facette
+	\item Jede Kantenseite in genau 1 Facette
 	\item Jede Kante hat genau 2 Seiten
 \end{itemize}
 $\implies 3f\leq \text{Anzahl der Seiten-Facetten-Inzidenzen} =2m$

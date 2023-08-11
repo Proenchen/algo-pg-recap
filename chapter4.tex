@@ -3,7 +3,7 @@
 \textbf{Definition}: Sei $G=(V,E)$ ein Graph, $e=uv$ eine Kante. Dann ist die \textbf{Unterteilung von $\boldsymbol{e}$ in $\boldsymbol{G}$} der Graph $G\circ e=(V',E')$ mit
 \begin{itemize}
 	\item $V'=V+\{w\}$
-	\item $E'=(E\setminus \{uv\})+\{uw,vw\}$
+	\item $E'=(E-uv)+\{uw,vw\}$
 \end{itemize}
 \bigskip
 \textbf{Beobachtung}: $G$ planar $\iff$ $G\circ e$ planar\\
@@ -26,9 +26,9 @@ Graph $G$ \textbf{enthält eine $\boldsymbol{H}$-Unterteilung}, wenn ein Teilgra
 
 \textit{Beweis}: \enquote{$\Rightarrow$} folgt aus obiger Beobachtung. Die Rückrichtung ist komplizierter und beweisen wir später.\\
 
-\textbf{Definition}: Sei $G=(V,E)$ ein Graph, $e=uv$ eine Kante. Der Graph $G/e=(V',E')$ ist der Graph, der durch Kontrahieren der Kante $\boldsymbol{e}$ entsteht, genauer:
+\textbf{Definition}: Sei $G=(V,E)$ ein Graph, $e=uv$ eine Kante. Der Graph $G/e=(V',E')$ ist der Graph, der durch \textbf{Kontrahieren der Kante} $\boldsymbol{e}$ entsteht, genauer:
 \begin{itemize}
-	\item $V'=V\setminus\{u,v\}+\{w\}$
+	\item $V'=V-\{u,v\}+\{w\}$
 	\item $E'=E(G-u-v)\cup\{wa\mid au\in E \text{ oder } av\in E\}$
 \end{itemize}
 Diesen Prozess nennt man auch \textbf{Kantenkontraktion}. Dabei können Multikanten und Schlaufen entstehen.
@@ -63,7 +63,7 @@ Diesen Prozess nennt man auch \textbf{Kantenkontraktion}. Dabei können Multikan
 
 $(3)\implies(2)\implies(1)$ wurde schon bewiesen, $(1)\implies(2)\implies(3)$ müssen wir noch beweisen. Wir beginnen mit $(1)\implies(2)$.\\
 
-\textit{Beweis von Wagner}: Es muss nur noch die Rückrichtung beweisen werden. Sei hierfür $G$ ein nicht-planarer Graph. Wir müssen einen $K_5$- oder $K_{3,3}$-Minor in $G$ finden. O.B.d.A. sei $G$ sogar minimal nicht-planar, d.h.
+\textit{Beweis von Wagner}: Es muss nur noch die Rückrichtung beweisen werden. Sei hierfür $G$ ein nicht-planarer Graph. Wir müssen einen $K_5$- oder $K_{3,3}$-Minor in $G$ finden. O.B.d.A. sei $G$ sogar \textbf{minimal nicht-planar}, d.h.
 \begin{itemize}
 	\item $G-v$ ist planar für jeden Knoten $v\in V$
 	\item $G-e$ ist planar für jede Kante $e\in E$
@@ -98,7 +98,7 @@ Das Lemma wird nun anhand von 3 Behauptungen bewiesen.\\
 \pagebreak
 
 
-\textbf{Notation}: Für einen Kreis $C$ in einer planaren Zeichnung erhält man eine geschlossene \textbf{Jordankurve}, die die Ebene in zwei Komponenten unterteilt:
+\textbf{Notation}: Für einen Kreis $C$ in einer planaren Zeichnung erhält man eine \textbf{geschlossene Jordankurve}, die die Ebene in zwei Komponenten unterteilt:
 \begin{itemize}
 	\item $\text{int}(C)$, das Innere von $C$
 	\item $\text{ext}(C)$ , das Äußere von $C$
@@ -121,8 +121,8 @@ Das Lemma wird nun anhand von 3 Behauptungen bewiesen.\\
 		\includegraphics[width=0.3\textwidth]{images/wagner-2.png}
 	\end{center}
 	\item Betrachte Kreis $C$ im $\Theta$, sodass Knoten $z$ auf einer Seite von $C$ und eine Kante $e'\in E(\Theta)$ auf der anderen Seite von $C$ liegt.
-	\item Wähle $\Theta$ und $C$ so, dass die Seite von $C$ mit $z$ inklusionsminimal ist, d.h. es gibt kein anderes $\Theta$ mit Kreis $C$, was $z$ enthält und ein kleineres Inneres hat
-	\item O.B.d.A. gilt $z\in\text{int}(C)$ und $e'\in\text{ext}(C)$
+	\item Wähle $\Theta$ und $C$ so, dass die Seite von $C$ mit $z$ inklusionsminimal ist, d.h. es gibt kein anderes $\Theta$ mit Kreis $C$, was $z$ enthält und ein kleineres Inneres hat.
+	\item O.B.d.A. gilt $z\in\text{int}(C)$ und $e'\in\text{ext}(C)$.
 	\begin{center}
 		\includegraphics[width=0.27\textwidth]{images/wagner-3.png}
 	\end{center}
@@ -206,7 +206,7 @@ Damit ist \textit{Behauptung 2} bewiesen.\\
 	$\implies$ $G$ ist planar \Lightning
 	\item Also gibt es Artikulationspunkte und $|T|\geq 2$.
 	\item Also hat $T$ mindestens 2 Blätter.
-	\item Blätter im Block-Cutvertex-Tree sind entweder Brücken oder Kreise im ursprünglichen Graphen. Brücken führen immer zu Grad 1 Knoten. Nach Behauptung 2 gibt es ein Blatt in $T$, das in $G$ ein Kreis $C$ hat.
+	\item Blätter im Block-Cutvertex-Tree sind entweder Brücken oder Kreise im ursprünglichen Graphen. Brücken führen immer zu Grad 1 Knoten. Nach Behauptung 2 gibt es ein Blatt in $T$, das in $G$ ein Kreis $C$ ist.
 	\item Sei $v$ der Artikulationspunkt in $C$, der $C$ an den Graphen \enquote{klebt}.
 	\item Jedes $u\in V(C)-v$ hat Grad 2 in $G-x-y$ (da Blatt im Cutvertex-Tree), aber mindestens Grad 3 in $G$.
 	\item Also ist jedes $u$ zu $x$ oder $y$ benachbart. $u$ kann nicht zu beiden benachbart sein, da sonst $G-v-w$ ein $\Theta$ enthält.

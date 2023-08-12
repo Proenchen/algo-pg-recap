@@ -46,7 +46,7 @@ Also Knotenmenge $I\subseteq V$ mit $|I|$ maximal, sodass jede Kante in $E$ höc
 	\item \textbf{Gesucht}: Matching $M\subseteq E$ mit $w(M)=\sum\limits_{e\in M} w(e)$ maximal
 \end{itemize}
 \bigskip
-\textbf{Definition}: Sei $M\subseteq E$ Matching in $(G = (V, E), w)$. Ein $M$-alternierender Weg ist ein einfacher Pfad oder Kreis $P$ in $G$, sodass
+\textbf{Definition}: Sei $M\subseteq E$ Matching in $(G = (V, E), w)$. Ein \textbf{$\mathbf{M}$-alternierender Weg} ist ein einfacher Pfad oder Kreis $P$ in $G$, sodass
 \begin{itemize}
 	\item sich Kanten von $M$ und $E- M$ auf $P$ abwechseln
 	\item wenn $P$ ein Pfad mit Endpunkt $v$ und Kante $e$ an $v$ in $P$ ist, dann ist $e\in M$ oder $v$ ungematcht (verhindert, dass der Pfad verlängert werden kann)
@@ -54,9 +54,9 @@ Also Knotenmenge $I\subseteq V$ mit $|I|$ maximal, sodass jede Kante in $E$ höc
 		\includegraphics[width=0.2\textwidth]{images/alternating-path.png}
 	\end{center}
 \end{itemize}
-Für Matching $M$ und alternierenden Weg $P$ ist auch $M\Delta P\coloneqq (M- P)\cup(P- M)$ (\textbf{symm. Differenz}) ein Matching.
+Für Matching $M$ und alternierenden Weg $P$ ist auch $M\Delta P\coloneqq (M- P)\cup(P-M)$ (\textbf{symmetrische Differenz}) ein Matching.
 
-Dabei gilt $w(M\Delta P)-w(M)=w(P- M)-w(P\cap M)$, denn sowohl neues Matching als auch altes Matching enthalten die Kanten, die nicht auf dem Pfad liegen. Dann ist die Differenz zwischen neuem und alten Matching nur die Kanten von $M\Delta P$ auf dem Pfad, was $P-M$ ist, und die Kanten von $M$ auf dem Pfad, was $P\cap M$ ist, relevant.
+Dabei gilt $w(M\Delta P)-w(M)=w(P- M)-w(P\cap M)$, denn sowohl neues als auch altes Matching enthalten die Kanten, die nicht auf dem Pfad liegen. Dann ist die Differenz zwischen neuem und alten Matching nur die Kanten von $M\Delta P$ auf dem Pfad, was $P-M$ ist, und die Kanten von $M$ auf dem Pfad, was $P\cap M$ ist.
 
 \begin{center}
 	\includegraphics[width=0.25\textwidth]{images/sym-diff.png}
@@ -122,7 +122,7 @@ Wenn ein erhöhender Pfad $P$ mit Endpunkt $v$ und $M'=M\Delta P$ existiert, dan
 
 \textit{Beweis - Teil 1}:
  \begin{itemize}
- 	\item \enquote{$\Rightarrow$}: Wenn es einen solchen erhöhenden Weg gibt, dann kann $M$ nicht gewichtsmaximal in $G$ sein.
+ 	\item \enquote{$\Rightarrow$}: Wenn es einen solchen erhöhenden Weg gäbe, dann kann $M$ nicht gewichtsmaximal in $G$ sein.
  	\item \enquote{$\Leftarrow$}:
  	\begin{itemize}
  		\item Sei $M$ nicht gewichtsmaximal in $G$, dann gibt es ein Matching $M^*$ mit $w(M^*)>w(M)$
@@ -153,7 +153,7 @@ Wenn ein erhöhender Pfad $P$ mit Endpunkt $v$ und $M'=M\Delta P$ existiert, dan
 \begin{itemize}
 	\item 1. geht in $\mathcal{O}(1)$
 	\item Finden eines $\frac{2}{3}$-balancierten Separator in $\beta \cdot n$ Schritten
-	\item Finden eines alternierenden Weges mit Endpunkt $v$ geht in $\mathcal{O}(n\cdot |S|)\leq \gamma\cdot n^{\frac{3}{2}}$ Schritten (s. Übung)
-	\item Sei $T(n)$ die worst-case Gesamtlaufzeit, dann ist $T(n)\leq T(n_1)+T(n_2)+\beta\cdot n+\gamma\cdot n^{\frac{3}{2}}$, wobei $n_1,n_2$ die Anzahl der Knoten der Teilgraphen nach dem Separieren ist
+	\item Finden von $|S|$ erhöhenden Wegen mit Endpunkt $v$ in $|S|\cdot\mathcal{O}(n\log n)\leq \gamma\cdot n^{\frac{3}{2}}\log n$ Schritten
+	\item Sei $T(n)$ die worst-case Gesamtlaufzeit, dann ist $$T(n)\leq T(n_1)+T(n_2)+\beta\cdot n+\gamma\cdot n^{\frac{3}{2}}\log n$$ wobei $n_1,n_2$ die Anzahl der Knoten der Teilgraphen nach dem Separieren ist
 	\item Der Rest vom Beweis ist viel Mathe und nicht relevant für die Klausur
 \end{itemize}

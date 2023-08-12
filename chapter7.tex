@@ -1,4 +1,4 @@
-\section{Mixed Max Cut und Via-Minimierung}
+\section{Mixed Max Cut}
 
 \textbf{Definition}: Ein Schnitt in $G=(V,E)$ ist eine Kantenmenge $C\subseteq E$, die von einer Knotenmenge $A\subseteq V$ folgendermaßen induziert wird:
 $$C=\{uv\in E\mid |A\cap\{u,v\}|=1\}$$
@@ -17,7 +17,7 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 \bigskip
 \textbf{Satz}: \texttt{MIXED-MAX-CUT} ist auf planaren Graphen polynomiell lösbar.
 
-\textit{Beweis}: Gegeben einen Graphen $G_0=(V, E_0)$ und $w_0\colon E_0\rightarrow\R$.
+\textit{Beweis}: Gegeben einen Graphen $G_0=(V, E_0)$ und $w\colon E_0\rightarrow\R$.
 \begin{enumerate}
 	\item Trianguliere $G_0$ zu $G=(V,E)$ und setze $w(e)=0$ für jede Kante $e\in E\setminus E_0$
 	\begin{center}
@@ -28,7 +28,7 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 		\item $A\subseteq V$ induziert $C_0\subseteq E_0$ in $G_0$
 		\item $A\subseteq V$ induziert $C\subseteq E$ in $G$
 	\end{itemize}
-	Außerdem gilt $w(C_0)=w(C)$, also riecht es im Folgenden den triangulierten Graphen anzuschauen. 
+	Außerdem gilt $w(C_0)=w(C)$, also reicht es im Folgenden den triangulierten Graphen anzuschauen. 
 	
 	\textbf{Achtung}: $C_0=\emptyset$ könnte gelten! Das wird später behoben.
 	
@@ -46,7 +46,8 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 	
 	\textbf{Lemma}: Sei $G = (V , E)$ trianguliert, $G^*$ zu $G$ dual. Dann gilt:
 	$$C\subseteq E \text{ ist Schnitt} \iff C^*\subseteq E^* \text{ ist eine gerade Kantenmenge}$$
-	
+	Außerdem ist $w(C)=w(C^*)$.
+		
 	\textit{Beweis}: 
 	\begin{itemize}
 		\item \enquote{$\Rightarrow$}: Sei $C\subseteq E$ Schnitt in $G$ induziert von $A\subseteq V$. Sei $f\in V(G^*)$ und $e_1^*,e_2^*,e_3^*$ seine drei inzidenten Kanten. Betrachte das zu $f$ zugehöriges Dreieck $v_1,v_2,v_3$ in $G$.
@@ -72,7 +73,7 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 			\Leftrightarrow\; & \text{Genau einer der Endpunkte von } e \text{ ist in } A
  		\end{aligned}
 		$$
-		Also ist $C$ ein Schnitt.
+		Also ist $C$ ein Schnitt und wird von $A$ induziert.
 	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.2\textwidth]{images/mmc-4.png}

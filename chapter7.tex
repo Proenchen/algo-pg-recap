@@ -94,7 +94,7 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 
 	\textbf{Lemma}: 
 	\begin{itemize}
-		\item Für jede gerade Menge $C^*\subseteq E^*$ existiert ein 2-Faktor $C'\subseteq E'$ mit $C'\cap E^*=C^*$
+		\item Für jede gerade Menge $C^*\subseteq E^*$ ex. ein 2-Faktor $C'\subseteq E'$ mit $C'\cap E^*=C^*$
 		\item Für jeden 2-Faktor $C'\subseteq E'$ ist $C^*=C'\cap E^*$ eine gerade Menge
 		\item Es gilt $w(C')=w(C^*)$
 	\end{itemize}
@@ -111,7 +111,7 @@ $C$ enthält also genau die Kanten, die genau einen Endpunkt in $A$ haben.\\
 	\begin{itemize}
 		\item Da $G'$ 3-regulär ist, ist das Komplement eines 2-Faktors $C'$ in $G'$ ein perfektes Matching $M$. $$M=E'-C'$$
 		\item 2-Faktor $C'$ ist gewichtsmaximal genau dann, wenn das komplementäre perfekte Matching $M$ gewichtsminimal ist
-		$$w(M)=w(E)-w(C')$$
+		$$w(M)=w(E')-w(C')$$
 	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.2\textwidth]{images/mmc-7.png}
@@ -141,8 +141,8 @@ Nun muss nur noch $C_0\neq\emptyset$ sichergestellt werden.
 	\begin{center}
 		\includegraphics[width=0.3\textwidth]{images/mmc-8.png}
 	\end{center}
-	\item Um den besten Schnitt zu erhalten, wiederholt man den Vorgang für jede Kante $e\in E_0$
-	\item Wir erhalten so die Laufzeit $\mathcal{O}(n^\frac{3}{2}\log n)\cdot\mathcal{O}(n)=\mathcal{O}(n^\frac{5}{2}\log n)$. $\mathcal{O}(n^\frac{3}{2}\log n)$ ist aber möglich!
+	\item Um besten Schnitt zu erhalten, wiederholt man den Vorgang für jede Kante $e\in E_0$
+	\item Wir erhalten Laufzeit $\mathcal{O}(n^\frac{3}{2}\log n)\cdot\mathcal{O}(n)=\mathcal{O}(n^\frac{5}{2}\log n)$. $\mathcal{O}(n^\frac{3}{2}\log n)$ ist aber möglich!
 \end{itemize}
 
 Damit ist der Beweis abgeschlossen. Es folgt eine Übersicht über den Algorithmus.

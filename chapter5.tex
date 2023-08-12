@@ -42,9 +42,9 @@ Eine solche Partition kann in $\mathcal{O}(n)$ Zeit konstruiert werden.
 	\item Sei $\text{Inneres}(K_{x,y})$ die Knoten, die innerhalb des Kreises, aber nicht auf dem Rand des Kreises liegen. Definiere $\text{Äußeres}(K_{x,y})$ dementsprechend.
 	\item Wähle Nichtbaumkante $\{x,y\}$ aus, wobei $|\text{Inneres}(K_{x,y})|\geq|\text{Äußeres}(K_{x,y})|$
 	\item Wennn $|\text{Inneres}(K_{x,y})| \leq \frac{2}{3}n$, dann gilt das Lemma und wir sind fertig
-	\item Sei also  $|\text{Inneres}(K_{x,y})|<\frac{2}{3}n$, dann ist $|\text{Äußeres}(K_{x,y})|<\frac{1}{3}n$
+	\item Sei also  $|\text{Inneres}(K_{x,y})|>\frac{2}{3}n$, dann ist $|\text{Äußeres}(K_{x,y})|<\frac{1}{3}n$
 	\item \underline{Ziel}: Ersetze $\{x,y\}$ durch eine andere Nichtbaumkante, sodass das Innere kleiner wird und das Äußere nicht über $\frac{2}{3}n$ wächst
-	\item Da Graph trianguliert, begrenzt Kante $\{x,y\}$ zwei Dreiecke, von denen eins im $\text{Inneres}(K_{x,y})$ liegt $\implies$ Dreieck $x\;y\;t$
+	\item Da Graph trianguliert, begrenzt Kante $\{x,y\}$ zwei Dreiecke, von denen eins im $\text{Inneren}(K_{x,y})$ liegt $\implies$ Dreieck $x\;y\;t$
 	\begin{center}
 		\includegraphics[width=0.15\textwidth]{images/pst-2.png}
 	\end{center}
@@ -52,14 +52,14 @@ Eine solche Partition kann in $\mathcal{O}(n)$ Zeit konstruiert werden.
 
 \begin{wrapfigure}{r}{0.15\textwidth}
 	\centering
-	\vspace{0pt}
+	\vspace{10pt}
 	\includegraphics[width=0.15\textwidth]{images/pst-3.png}
 	\includegraphics[width=0.15\textwidth]{images/pst-4.png}
 	\vspace{40pt}
 	\vspace{-800pt}
 \end{wrapfigure}
 
-\underline{Fall 1}: $\{x,t\}\text{ oder } \{t,y\}$ ist eine Baumkante. Ersetze $\{x,y\}$ durch  $\{x,t\}$.
+\underline{Fall 1}: $\{x,t\}\text{ oder } \{t,y\}$ ist eine Baumkante, o.B.d.A sei $\{t,y\}$ eine Baumkante. Ersetze $\{x,y\}$ durch  $\{x,t\}$.
 \begin{itemize}
 	\item Falls $t\notin K_{x,y}$:
 	\begin{itemize}
@@ -88,15 +88,17 @@ In beiden Fällen verkleinern wir $|\text{Inneres}(K_{x,y})|$ und lassen $|\text
 $\implies$ Partition mit den gewünschten Eigenschaften lässt sich konstruieren. Wir müssen nun noch deren Implementation in linearer Laufzeit sicherstellen.
 
 \begin{itemize}
+	\item Triangulierung des Graphen in $\mathcal{O}(n)$ möglich $\rightarrow$ Übung
 	\item Ersetzung einer Nichtbaumkante durch eine andere, welche die Anzahl der Dreiecke im Inneren reduziert $\implies$ Höchstens $2n-4$ Schritte
 	\item In Fall 1 können wir $|\text{Inneres}(K_{x,y})|$ und $|\text{Äußeres}(K_{x,y})|$ in $\mathcal{O}(1)$ berechnen
 	\item Für Fall 2 muss entschieden werden, ob $|\text{Inneres}(K_{x,t})|$ oder $|\text{Inneres}(K_{t,y})|$ größer ist. Zeige, dass auch dieser Fall nur konstante Zeit benötigt mithilfe einer amortisierten Analyse.
 	\item Führe dazu folgende Vorberechnung durch:
 	\begin{itemize}
 		\item Durchlaufe $T$ von den Blättern zur Wurzel
-		\item Speichere für jeden Knoten $v$ und inzidente Baumkanten die Anzahl Knoten im Unterbaum links bzw. rechts der Kante
+		\item Speichere für jeden Knoten und inzidente Baumkanten die Anzahl Knoten im Unterbaum links bzw. rechts der Kante und markiere den Knoten
 		\item Dies kann einmalig in Linearzeit durchgeführt werden
 	\end{itemize}
+	\item Laufe von $t$ nach oben bis zum ersten markierten Knoten $v$ und berechne die Anzahl der Knoten rechts und links des Weges
 	\item Laufe von $x$ und $y$ abwechselnd in Richtung Wurzel bis erstmals $v$, d.h. Weg von $t$ zur Wurzel, erreicht wird.
 	\begin{center}
 		\includegraphics[width=0.4\textwidth]{images/pst-6.png}
@@ -120,7 +122,7 @@ Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.\\
 	\end{center}
 	\item Wenn $|\text{level } \mu|\leq 4\sqrt{n}$, dann ist $\mu$ ein geeigneter Separator und wir sind fertig.
 	\item Sei also $|\text{level } \mu|> 4\sqrt{n}$.
-	\item Sei $m$ das unterste Level oberhalb von $\mu$ und $M$ das oberste Level unterhalb von $\mu$ mit $|S_m|\leq\sqrt{n}$ und $S_M\leq\sqrt{n}$.
+	\item Sei $m$ das unterste Level oberhalb von $\mu$ und $M$ das oberste Level unterhalb von $\mu$ mit $|\text{level } m|<\sqrt{n}$ und $|\text{level } M|<\sqrt{n}$.
 	\begin{center}
 		\includegraphics[width=0.3\textwidth]{images/pst-8.png}
 	\end{center}
@@ -131,18 +133,18 @@ Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.\\
 \begin{itemize}
 	\item $S=\text{level }m\cup\text{level }M$ ist Separator
 	\item $V_1=\max\{A_1,A_2,A_3\}, |V_1|\leq\frac{2}{3}n$
-	\item $V_2=V\setminus(S\cup V_1), |V_2|<\frac{2}{3}n$
+	\item $V_2=V\setminus(S\cup V_1), |V_2|\leq n-|V_1|\leq n-\frac{|V_2|}{2}$, da $|V_1|\geq\frac{|V_2|}{2}$, sonst wäre $|V_1|$ nicht maximal, da $V_2$ ein größeres $A_i$ beinhaltet $\Rightarrow$ $|V_2|\leq\frac{2}{3}n$
 	\item Damit wurde ein geeigneter Separator gefunden und wir sind fertig
 \end{itemize}
 
 \underline{Fall 2}: $|A_2|>\frac{2}{3}n$
 \begin{itemize}
-	\item Verschmelze die Knoten in $A_1\cup S_m$ zu einem Knoten $s$  und entferne alle Knoten aus $S_M\cup A_3$. Dadurch entsteht ein neuer Graph $G'$.
+	\item Verschmelze die Knoten in $A_1\cup \text{ level }m$ zu einem Knoten $s$ und entferne alle Knoten aus $\text{level }M\cup A_3$. Dadurch entsteht ein neuer Graph $G'=(V',E')$.
 	\begin{center}
 		\includegraphics[width=0.25\textwidth]{images/pst-9.png}
 	\end{center}
 	\item BFS-Baum $T$ induziert BFS-Baum $T'$ in $G'$
-	\item $T'$ hat maximal Höhe $\sqrt{n}$, da $|V'|\leq n$ und durch die Wahl von $m$ und $M$ für jede Schicht $S_i$ zwischen $m$ und $M$ $|S_i|>\sqrt{n}$ gilt
+	\item $T'$ hat maximal Höhe $\sqrt{n}$, da $|V'|\leq n$ und durch die Wahl von $m$ und $M$ für jede Schicht $S_i$ zwischen $m$ und $M$ $|S_i|\geq\sqrt{n}$ gilt
 	\item Wende obiges Lemma auf $G'$ und $T'$ an und erhalte $S', U_1, U_2$
 	\begin{center}
 		\includegraphics[width=0.25\textwidth]{images/pst-10.png}
@@ -150,7 +152,7 @@ Damit ist auch die Laufzeit und somit das gesamte Lemma bewiesen.\\
 	\item Sei $S=S'\cup\text{level } m\cup\text{level } M$
 	\item Nach dem Lemma folgt $|S'|\leq 2\sqrt{n}+1$, also $|S|\leq4\sqrt{n}$
 	\item Sei $V_1=\max\{U_1,U_2\}.$ Nach dem Lemma gilt $|V_1|\leq\frac{2}{3}n$
-	\item Weiterhin gilt $|V_1|+|S|>|V_1|+|S'|>\frac{1}{2}\cdot A_2$. Setzt man also $V_2=V\setminus(S\cup V_1)$, dann gilt $|V_2|=n-|V_1|-|S|<n-\frac{1}{2}\cdot |A_2|<\frac{2}{3}n$
+	\item Weiterhin gilt $|V_1|+|S|>|V_1|+|S'|>\frac{1}{2}\cdot|A_2|$. Setzt man also $V_2=V\setminus(S\cup V_1)$, dann gilt $|V_2|=n-|V_1|-|S|<n-\frac{1}{2}\cdot |A_2|<\frac{2}{3}n$
 	\begin{center}
 		\includegraphics[width=0.25\textwidth]{images/pst-11.png}
 	\end{center}

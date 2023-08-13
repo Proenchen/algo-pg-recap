@@ -1,1 +1,91 @@
 \section{Menger-Problem}
+
+\texttt{MENGER PROBLEM}:
+\begin{itemize}
+	\item \textbf{Gegeben}: Graph $G = (V, E)$ und $s, t\in V$
+	\item \textbf{Gesucht}: Maximale Anzahl \textbf{kantendisjunkter} $s$-$t$-Pfade in $G$
+\end{itemize}
+
+Kann im Allgemeinen mit \texttt{MAX FLOW} gelöst werden, indem jede Kante Kapazität 1 erhält. Wenn Fluss $k$ ist, dann gibt es $k$ kantendisjunkte Wege. Laufzeit für planare Graphen liegt dann in $\mathcal{O}(n\log n)$.
+
+Wir werden aber eine Lösung in Linearzeit kennenlernen.\\
+\pagebreak
+
+\textbf{Algorithmus für das \texttt{MENGER PROBLEM}}:
+
+Sei o.B.d.A. $t$ an der äußeren Facette von $G$.
+\begin{enumerate}
+	\item Konstruiere gerichteten Graphen $D_1=(V,A_1)$ mit $uv\in A_1\iff uv\in E$
+	\item Konstruiere $D_2=(V,A_2)$ aus $D_1$, sodass $D_2$ keine gerichteten Kreise im Uhrzeigersinn (Rechtskreise) enthält
+	\item Finde maximale Anzahl gerichteter, kantendisjunkter $s$-$t$-Pfade $P_1,\ldots,P_k$ in $D_2$
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/menger-2.png}
+	\end{center}
+	\item Berechne aus $P_1,\ldots,P_k$ ungerichtete $s$-$t$-Pfade $Q_1,\ldots,Q_k$ in $G$
+\end{enumerate}
+\bigskip
+Zeige \textbf{Korrektheit von Schritt 1}. Laufzeit und Durchführung sind klar.
+
+\textbf{Lemma}: $G$ hat $k$ kantendisjunkte $s$-$t$-Pfade $\iff$ $D_1$ hat $k$ kantendisjunkte gerichtete $s$-$t$-Pfade
+
+\textit{Beweis}: 
+\begin{itemize}
+	\item Gegeben $k$ kantendisjunkte gerichtete $s$-$t$-Pfade in D1, interpretiere diesen als Fluss $\Phi$ von Wert $k$ auf $D_1$ mit $\Phi(uv)\in\{0,1\}$ für jede gerichtete Kante
+	\item Definiere $\Phi'$ als
+	\begin{itemize}
+		\item $\Phi'(uv)=\Phi'(vu)=0$, wenn $\Phi(uv)=\Phi(vu)=1$
+		\item Ansonsten $\Phi'(uv)=\Phi(uv)$
+		\item Es wurde der Fluss also dort auf 0 gesetzt, wo hin und Rückkante benutzt werden
+	\end{itemize}
+	\item $\Phi'$ hat Wert $k$ und es gibt $k$ kantendisjunkte Wege in $G$
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/menger-1.png}
+	\end{center}
+\end{itemize}
+\bigskip
+Nun wird die \textbf{Konstruktion in Schritt 2} beschrieben:
+\begin{itemize}
+	\item Betrachte Breitensuche von der äußeren Facette $f_0$ im gerichteten Dualgraphen $D_1^*$ von $D_1$
+	\item Auf Level $i$ sind alle Facetten mit Abstand $i$ zu $f_0$. Drehe für jedes $i$ die Richtung aller gerichteten Kanten von Level $i$ nach Level $i+1$ um.
+	\item Ergebnis: $D_2^*$ mit primalen Graph $D_2$
+	\item Da Breitensuche in Linearzeit möglich ist, ist auch dieses Verfahren in Linearzeit möglich.
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/menger-3.png}
+	\end{center}
+\end{itemize}
+
+\textbf{Lemma}: $D_2$ enthält keine Rechtskreise
+
+\textit{Beweis}: 
+\begin{itemize}
+	\item Angenommen $K$ wäre ein Rechtskreis in $D_2$
+	\item Dann ist $K^*$ ein gerichteter Schnitt in $D_2^*$
+	\item Sei $f$ eine Facette innerhalb von $K$
+	\item Ein kürzester Weg von $f_0$ zu $f$ muss den Schnitt passieren, aber diese Kanten wurden in $D_2^*$ umgedreht.
+	\item Widerspruch dazu, dass $K$ ein Rechtskreis ist
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/menger-4.png}
+	\end{center}
+\end{itemize}
+
+\textbf{Lemma}: $D_2$ enthält $k$ kantendisjunkte $s$-$t$-Wege $\iff$ $D_1$ enthält $k$ kantendisjunkte $s$-$t$-Wege.
+
+\textit{Beweis}:
+\begin{itemize}
+	\item In Schritt 2 wurden im Dualen immer Kantenmengen zwischen zwei Levels umgedreht
+	\item Das sind im Dualen $D_1^*$ knoteninduzierte $s$-$t$-Schnitte
+	\item Im Primalen $D_1$ sind das für ein festes Level eine disjunkte Vereinigung von Kreisen
+	\item Es reicht also zu zeigen, dass $k$ kantendisjunkte Wege, erhalten bleiben wenn ein gerichteter Kreis umgedreht wird
+	\item Sei also ein gerichteter Kreis umgedreht
+	\item Interpretiere wieder $k$ Wege als Fluss $\Phi$ mit Wert $k$
+	\item Drehe Orientierung der Kanten und gleichzeitig den Flusswert der Kante
+	\item Dies erhält die Flusseigenschaften und wir erhalten wieder ein Fluss $\Phi'$ mit Wert $k$ $\implies$ Wir erhalten auch wieder $k$ Wege.
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/menger-5.png}
+	\end{center}
+\end{itemize}
+\bigskip
+Nun wird das \textbf{Vorgehen in Schritt 3} beschrieben:
+\begin{itemize}
+	\item TODO
+\end{itemize}

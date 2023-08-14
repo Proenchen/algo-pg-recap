@@ -92,3 +92,88 @@ Zwei Kanten $f_1,f_2$ haben einen \textbf{Konflikt} bezüglich $e_1,e_2$, wenn
 $\implies$ Damit haben wir einen Planaritätstest in $\mathcal{O}(n^2)$. Eine Beschleunigung auf $\mathcal{O}(n)$ ist aber möglich.\\
 
 \textit{Korrektheitsbeweis vom obigen Satz}:
+
+Zeige zunächst \underline{$G$ planar $\implies$ $G$ hat LR-Zerlegung}:
+\begin{itemize}
+	\item Einbettung von $G$ mit Knoten 1 an der äußeren Facette induziert eine Einbettung des gerichteten DFS-Baumes.
+	\item Nichtbaumkante $e$ ist in $L$, wenn der Fundamentalkreis zu $e$ gegen den Uhrzeigersinn orientiert ist
+	\item Nichtbaumkante $e$ ist in $R$, wenn der Fundamentalkreis zu $e$ im Uhrzeigersinn orientiert ist
+	\begin{center}
+		\includegraphics[width=0.15\textwidth]{images/lr-1.png}
+	\end{center}
+	\item Zeige, dass diese Einteilung in $L$ und $R$ alle Konflikte erfüllt
+	\item Betrachte eine Gabel $e_1,e_2$ an Gabelknoten $u$ mit eingehender Baumkante $e$
+	\item Seien o.B.d.A. $e, e_1, e_2$ in dieser cw-Reihenfolge um $u$ und $t(e_1)\geq t(e_2)$
+	\item Betrachte nun $f_1\in R(e_1,e_2)$ und $f_2\in R(e_2,e_1)$:
+	\begin{center}
+		\includegraphics[width=0.45\textwidth]{images/lr-2.png}
+	\end{center}
+\end{itemize}
+
+Zeige nun \underline{$G$ hat LR-Zerlegung $\implies$ $G$ planar}: 
+\begin{itemize}
+	\item Betrachte eine LR-Zerlegung, konstruiere eine planare Einbettung von $G$ mit Knoten 1
+	an der äußeren Facette, d.h. gib für jeden Knoten die zyklische Reihenfolge der inzidenten Kanten an
+\end{itemize}
+
+\textbf{Schritt 1}: LR-Zerlegung bündeln
+\begin{itemize}
+	\item Eine LR-Zerlegung heißt \textbf{gebündelt} wenn zu jeder Kante $e$ alle Rückkanten von $e$ mit Rückkehrpunkt $t(e)$ in der gleichen Menge ($L$ oder $R$) liegen
+	\item \textbf{Lemma}: Jede LR-Zerlegung kann gebündelt werden. \qquad \textit{ohne Beweis}.
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{images/lr-3.png}
+	\end{center}
+\end{itemize}
+
+\textbf{Schritt 2}: LR-Zerlegung auf Baumkanten erweitern
+\begin{itemize}
+	\item Sei $e = vw$ eine Baumkante. Betrachte Rückkante $e_H$ von $e$ deren Rückkehrpunkt die höchste DFS-Zahl hat, aber nicht $v$ ist
+	\item Füge $e$ der Menge, in der $e_H$ ist, hinzu
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/lr-4.png}
+	\end{center}
+\end{itemize}
+
+\textbf{Schritt 3}: Reihenfolge der ausgehenden Kanten festlegen
+\begin{itemize}
+	\item Für Knoten $v$ und ausgehende Kanten $e_1,e_2\in L$ definiere $e_1\prec e_2$ wenn
+	\begin{itemize}
+		\item entweder $t(e_2)<t(e_1)$
+		\item oder $t(e_2)=t(e_1)$ und $e_1$ hat noch weiteren Rückkehrpunkt
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{images/lr-5.png}
+	\end{center}
+	\item Im Uhrzeigersinn ist die Ordnung der $L$-Kanten um $v$ dann $e_1^L\prec e_2^L\prec\cdots\prec e_l^L$
+	\item $L$-Kanten sind also von innen nach außen sortiert
+	\item Für $R$-Kanten ist die Sortierung genau andersrum
+	\begin{center}
+		\includegraphics[width=0.15\textwidth]{images/lr-6.png}
+	\end{center}
+\end{itemize}
+
+\textbf{Schritt 4}: Reihenfolge der eingehenden Kanten an v zur gleichen Baumkante $e=(v,w)$
+\begin{itemize}
+	\item Betrachte die eingehenden Kanten in $L$: $$L(e)=\{\text{Rückkante von }e\text{ eingehend an }v\}\cap L$$
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/lr-7.png}
+	\end{center}
+	\item Je zwei $f_1,f_2\in L(e)$ kommen von einer Gabel $e_1,e_2$, wobei $f_i$ Rückkante von $e_i$ ist
+	\item Aus Schritt 3 haben die Kanten eine Ordnung bezüglich $\prec$ am Gabelknoten. O.B.d.A. sei nun $e_1\prec e_2$
+	\item Setze dann $f_2\prec f_1$ an $v$, also genau umgekehrt
+	\item Verfahre genauso für eingehende Kanten in $R$
+\end{itemize}
+
+\textbf{Schritt 5}: Inzidente Kanten an $v$ zyklisch sortieren
+\begin{itemize}
+	\item $e_1^L,\ldots,e_l^L,e_r^R,\ldots,e_1^R$ sortierte ausgehende Kanten
+	\item Betrachte $L(e_i^L), R(e_i^L)$ bzw. $L(e_j^R), R(e_j^R)$ mit in Schritt 4 festgelegten Reihenfolge
+	\item Für Nichtbaumkanten $e_i^L,e_j^R$ sind diese Mengen leer
+	\item Definiere nun die Reihenfolge im Uhrzeigersinn an $v$ als:
+	$$(u,v),L(e_1^L),e_1^L,R(e_1^L),\ldots,L(e_1^R),e_1^R,R(e_1^R)$$
+	\begin{center}
+		\includegraphics[width=0.25\textwidth]{images/lr-8.png}
+	\end{center}
+\end{itemize}
+
+Dieser ganze Prozess kann in $\mathcal{O}(n)$ durchgeführt werden.

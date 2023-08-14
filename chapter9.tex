@@ -87,5 +87,60 @@ Nun wird die \textbf{Konstruktion in Schritt 2} beschrieben:
 \bigskip
 Nun wird das \textbf{Vorgehen in Schritt 3} beschrieben:
 \begin{itemize}
-	\item TODO
+	\item Jeder Knoten in $D_2$ hat gleich viele eingehende wie ausgehende Kanten, da das in $D_1$ der Fall war und in Schritt 2 nur Kreise umgedreht wurden, was die Eigenschaft weiterhin erhält
+	\item Starte Tiefensuche bei $s$ mit ausgehender Kante
+	\item Nimm immer die rechteste ausgehende Kante bzgl. der gerade genommenen eingehenden Kante und gehe über jede Kante nur einmal
+	\item Wenn $t$ erreicht wird, ist ein $s$-$t$-Pfad gefunden und man fängt wieder bei $s$ mit neuer Kante an
+	\item Aufhören wenn keine ausgehende Kante verfügbar ist (das passiert bei $s$)
+	\item Wenn Knoten $t$ insgesamt $k$-mal erreicht wurde, wurden $k$ kantendisjunkte $s$-$t$-Pfade gefunden.
+	\begin{center}
+		\includegraphics[width=0.3\textwidth]{images/menger-6.png}
+	\end{center}
 \end{itemize}
+
+\textbf{Laufzeit von Schritt 3}:
+\begin{itemize}
+	\item Rechteste Kante kann mit Union-Find-Datenstruktur gefunden werden
+	\item Laufzeit von Union-Find ist allgemein $\mathcal{O}(n\cdot\alpha(n))$, also nur fast linear
+	\item Hier Spezialfall, in dem $n$ Operationen vom Typ Union und Find in Linearzeit ausgeführt werden können $\rightarrow$ Insgesamt Linearzeit
+\end{itemize}
+
+\textbf{Korrektheit von Schritt 3}:
+\begin{itemize}
+	\item \textbf{Ziel}: Finde einen $s$-$t$-Schnitt dessen Kapazität der Anzahl $k$ der gefundenen $s$-$t$-Pfade entspricht. Dann kann es nicht mehr als $k$ kantendisjunkte Pfade von $s$ nach $t$ geben, da diese den Schnitt passieren müssen
+	\item Betrachte Graphen $D = (V, A)$ mit allen Kanten, die im Algorithmus genommen wurden
+	\item Starte Tiefensuche in $D$ bei $s$ aber gehe Kanten rückwärts und nehme die linkeste mögliche Fortsetzung
+	\item Baue damit rückwärts einen gerichteten Weg $W$ zu $s$ auf und stoppe, wenn wir eine Kante aus $W$ als Fortsetzung nehmen würden oder wenn wir wieder auf $s$ treffen
+	\item Wir treffen nicht auf $t$, da $t$ in $D$ keine ausgehenden Kanten hat. Außerdem bleiben wir nicht hängen, da alle anderen Knoten so viele eingehende wie ausgehende Kanten haben
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/menger-7.png}
+	\end{center}
+	\item $W$ umschließt ein Gebiet, dessen Rand $K$ eine Menge gerichteter Kreise ist
+	\item Entlang von $K$ sind auf der rechten Seite Winkel ohne eingehenden Kanten
+	\item Wegen Schritt 2 hat $K$ keinen Rechtskreis $\rightarrow$ Winkel sind außen an den Kreisen
+	\item Also muss $s$ entweder auf $K$ oder $\text{int}(K)$ liegen, da (Rückwärts-)Wege von $s$ zu den Knoten in $K$ existieren und diese nicht in die Winkel laufen können
+	\item Knoten $t$ liegt nicht auf $K$, da er ohne ausgehende Kante nicht von der Rückwärts-Tiefensuche gefunden werden kann. $t\in\text{ext}(K)$, da $t$ nach Annahme auf der äußeren Facette von $D$ liegt
+	\item Definiere nun $S\subseteq V$ als Menge aller Knoten auf $K$ und in $\text{int}(K)$. $S$ induziert unseren $s$-$t$-Schnitt $C\subseteq A_2$
+	\item \textbf{Zu zeigen}: Kapazität $c(C)\leq k$
+	\item \textbf{Fall 1}: Sei $uv\in A$ mit $u\in V(K)$ und $v\in V-S$ eine Kante, die vom Algo benutzt wurde
+	\begin{center}
+		\includegraphics[width=0.2\textwidth]{images/menger-8.png}
+	\end{center}
+	\begin{itemize}
+		\item Dann ist die Tiefensuche nach $uv$ nicht wieder nach $S$ gekommen, endete also in $t$, denn Winkel haben keine eingehenden Kanten aus $A$!
+		\item Es gibt also höchstens $k$ solcher Kanten!
+	\end{itemize}
+	\item \textbf{Fall 2}: Sei $uv\in A_2-A$ Kante mit $u\in V(K)$ und $v\in V-S$, die vom Algo nicht benutzt wurde:
+	\begin{center}
+		\includegraphics[width=0.22\textwidth]{images/menger-9.png}
+	\end{center}
+	\begin{itemize}
+		\item Betrachte $uw\in E(K)$, die benutzt wurde und deren benutzte Vorgängerkante $xu$. Dann ist $x\in S$, da keine benutzten eingehenden Kanten in Winkeln liegen
+		\item Dann ist aber $uv$ eine bessere (weiter rechts) Fortsetzung für
+		$xu$ als $uw$ $\rightarrow$ Widerspruch!
+		\item Also gibt es keine solche Kanten!
+	\end{itemize}
+	\item In beiden Fällen hat der Schnitt also Kapazität höchstens $k$ und die Optimalität des Algorithmus ist bewiesen.
+\end{itemize}
+
+Damit wurde bewiesen, dass das \texttt{MENGER PROBLEM} in Linearzeit gelöst werden kann. Für Schritt 4 muss lediglich das Vorgehen aus Schritt 1 und 2 invertiert werden.

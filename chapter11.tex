@@ -5,8 +5,7 @@
 \textbf{Möglichkeit}: 
 \begin{itemize}
 	\item Teste auf $K_5$- oder $K_{3,3}$-Unterteilung
-	\item Es existiert ein theoretisch effizienter, aber nicht praktikabler Algorithmus dafür, da die Laufzeit sehr groß werden kann
-	\item Im Folgenden: \textbf{LR-Planarität}
+	\item Es existiert ein theoretisch effizienter, aber nicht praktikabler Algorithmus dafür, da die Laufzeit sehr groß werden kann. Im Folgenden: \textbf{LR-Planarität}
 \end{itemize}
 
 \textbf{Annahmen}:
@@ -38,7 +37,7 @@
 \bigskip
 \textbf{Definition}: Sei $e$ eine Kante. Eine Nichtbaumkante $(x, y)$ heißt \textbf{Rückkante} von $e$, wenn $e$ auf dem Fundamentalkreis von $(x, y)$ liegt. Dann nennt man $y$ einen \textbf{Rückkehrpunkt} von $e$. Ist $e$ eine Nichtbaumkante, so ist $e$ seine einzige und eigene Rückkante mit eindeutigem Rückkehrpunkt.
 \begin{center}
-	\includegraphics[width=0.2\textwidth]{images/back-edge.png}
+	\includegraphics[width=0.17\textwidth]{images/back-edge.png}
 \end{center}
 
 \textbf{Definition}: Sei $e$ eine Kante. Der tiefste Rückkehrpunkt von $e$
@@ -85,7 +84,7 @@ Zwei Kanten $f_1,f_2$ haben einen \textbf{Konflikt} bezüglich $e_1,e_2$, wenn
 		\item Knoten in $H$ werden verschmolzen, wenn sie einen Gleichheitskonflikt haben.
 	\end{itemize}
 	\begin{center}
-		\includegraphics[width=0.25\textwidth]{images/planar-test.png}
+		\includegraphics[width=0.22\textwidth]{images/planar-test.png}
 	\end{center}
 	\item LR-Zerlegung von $G$ existiert $\iff$ $H$ ist bipartit. Teste also den Graphen auf Bipartitheit. Das geht in $\mathcal{O}(n^2)$
 \end{enumerate}
@@ -130,7 +129,7 @@ Zeige nun \underline{$G$ hat LR-Zerlegung $\implies$ $G$ planar}:
 	\item Sei $e = vw$ eine Baumkante. Betrachte Rückkante $e_H$ von $e$ deren Rückkehrpunkt die höchste DFS-Zahl hat, aber nicht $v$ ist
 	\item Füge $e$ der Menge, in der $e_H$ ist, hinzu
 	\begin{center}
-		\includegraphics[width=0.2\textwidth]{images/lr-4.png}
+		\includegraphics[width=0.17\textwidth]{images/lr-4.png}
 	\end{center}
 \end{itemize}
 
@@ -152,11 +151,11 @@ Zeige nun \underline{$G$ hat LR-Zerlegung $\implies$ $G$ planar}:
 	\end{center}
 \end{itemize}
 
-\textbf{Schritt 4}: Reihenfolge der eingehenden Kanten an v zur gleichen Baumkante $e=(v,w)$
+\textbf{Schritt 4}: Reihenfolge eingehender Kanten an v zur gleichen Baumkante $e=(v,w)$
 \begin{itemize}
-	\item Betrachte die eingehenden Kanten in $L$: $$L(e)=\{\text{Rückkante von }e\text{ eingehend an }v\}\cap L$$
+	\item Betrachte eingehende Kanten in $L$: $L(e)=\{\text{Rückkante von }e\text{ eingehend an }v\}\cap L$
 	\begin{center}
-		\includegraphics[width=0.2\textwidth]{images/lr-7.png}
+		\includegraphics[width=0.18\textwidth]{images/lr-7.png}
 	\end{center}
 	\item Je zwei $f_1,f_2\in L(e)$ kommen von einer Gabel $e_1,e_2$, wobei $f_i$ Rückkante von $e_i$ ist
 	\item Aus Schritt 3 haben die Kanten eine Ordnung bezüglich $\prec$ am Gabelknoten. O.B.d.A. sei nun $e_1\prec e_2$

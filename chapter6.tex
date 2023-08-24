@@ -83,7 +83,7 @@ Dabei gilt $w(M\Delta P)-w(M)=w(P- M)-w(P\cap M)$, denn sowohl neues als auch al
 		\end{center}
 		\item $M\Delta M^*$ hat nur Knoten vom Grad 1 oder 2, besteht also aus einfachen Kreisen und Wegen $P_1,\ldots, P_t$
 		\item Jedes $P_i$ ist $M$-alternierender Weg
-		\item Es gilt $w(M^*)-w(M)=\sum\limits_{i=1}^t (w(M^*-P_i)-w(M\cap P_i))$
+		\item Es gilt $w(M^*)-w(M)=\sum\limits_{i=1}^t (w(M^*\cap P_i)-w(M\cap P_i))$
 		\item Ein Summand ist positiv, da $w(M^*)-w(M)>0$
 		\item Einer der $P_i$ ist also erhöhend, mit $w(M^*\cap P_i)>w(P_i\cap M)$ $\implies$ Es gibt also einen erhöhenden Weg. Widerspruch.
 	\end{itemize}
@@ -103,7 +103,7 @@ Dabei gilt $w(M\Delta P)-w(M)=w(P- M)-w(P\cap M)$, denn sowohl neues als auch al
 	\item Solange $S\neq\emptyset$:
 	\begin{itemize}
 		\item Wähle $v\in S$. Finde alternierenden Weg $P$ in $G'+v$ mit Endpunkt $v$ mit $w(P-M')-w(P\cap M')$ maximal
-		\item Falls $P$ erhöhend, ersetze $M'$ durch $M\Delta P$
+		\item Falls $P$ erhöhend, ersetze $M'$ durch $M'\Delta P$
 		\item Lösche $v$ aus $S$
 		\item Ersetze $G'$ durch $G'+v$
 	\end{itemize}
